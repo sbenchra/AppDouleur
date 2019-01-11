@@ -2,6 +2,7 @@ package com.example.soufianebenchraa.appdouleur.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 public class MedecinDAO extends DAOBase {
     public static final String Medecin_Key = "IdMedecin";
@@ -33,13 +34,25 @@ public class MedecinDAO extends DAOBase {
     public void modifierFMedecin(Medecin m)
     {
         ContentValues value = new ContentValues();
-        value.put(Medecin_FName, m.getNumeroMedecin());
+        value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());
+        value.put(MedecinDAO.Medecin_LName, m.getNomMedecin());
+        value.put(MedecinDAO.Medecin_Number, m.getNumeroMedecin());
         mDb.update(Medecin_Table_NAME, value, Medecin_Key  + " = ?", new String[] {String.valueOf(m.getIdMedecin())});
 
     }
 
-    public void selectionnerMedecin(int id)
+    public Medecin selectionnerMedecin(int id)
     {
+        Cursor c = mDb.rawQuery("select PrenomMedecin,NomMedecin,NumeroMedecin from " + Medecin_Table_NAME + " where IdMedecin = ? ", new String[]{id + ""});
 
+        String PrenomMedecin = c.getString(1);
+
+        String NomMedecin = c.getString(2);
+
+        String NumeroMedecin = c.getString(3);
+
+        Medecin m = new Medecin(id,PrenomMedecin, NomMedecin,NumeroMedecin);
+
+        return m;
     }
 }

@@ -40,12 +40,5 @@ public class ServiceDAO extends DAOBase {
 
         mDb.update(Service_Table_Name, value, Service_Key  + " = ?", new String[] {String.valueOf(s.getIdService())});
     }
-    public void ModifierAil(Service s)
-    {
 
-    }
-    public void ModifierName(Service s)
-    {
-
-    }
 }

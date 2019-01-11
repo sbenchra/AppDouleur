@@ -2,6 +2,7 @@ package com.example.soufianebenchraa.appdouleur.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 public class DouleurDAO extends DAOBase {
     public static final String Douleur_Key= "IdDouleur";
@@ -31,8 +32,19 @@ public class DouleurDAO extends DAOBase {
 
 
 
-    public void selectionnerDouleur(int id)
+    public Douleur selectionnerDouleur(int id)
     {
+        Cursor c = mDb.rawQuery("select Intensite,TempsDouleur,CodeParite from " + Douleur_Table_Name + " where IdPatient = ? ", new String[]{id + ""});
+
+        int Intensite = c.getInt(1);
+
+        String TempsDouleur = c.getString(2);
+
+        String CodePartie = c.getString(3);
+
+        Douleur d = new Douleur(id,TempsDouleur, CodePartie,Intensite);
+
+        return d;
 
     }
 }

@@ -33,6 +33,13 @@ public class SubitDAO extends DAOBase {
 
     public void modifierSubit(Subit s)
     {
+        ContentValues value = new ContentValues();
+        value.put(SubitDAO.Subit_Patient, s.getIdPatient());
+        value.put(SubitDAO.Subit_Intervention, s.getIdIntervention());
+
+        value.put(SubitDAO.Subit_Date, s.getDateIntervention());
+        value.put(SubitDAO.Subit_Heure, s.getHeureIntervention());
+        mDb.update(Subit_Table_Name, value, Subit_Patient  + " = ?", new String[] {String.valueOf(s.getIdIntervention())});
 
     }
 }
