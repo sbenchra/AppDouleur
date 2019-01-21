@@ -5,7 +5,7 @@ import android.content.Context;
 
 public class CentreDAO extends DAOBase {
     public static final String Centre_Key="IdCentre";
-    public static final String Centre_City="CentreVille";
+    public static final String City_Key="IdVille";
     public static final String Centre_Name="CentreNom";
     public static final String Centre_Table_Name="Centre";
 
@@ -21,7 +21,7 @@ public class CentreDAO extends DAOBase {
         super.open();
         ContentValues value = new ContentValues();
         value.put(CentreDAO.Centre_Name, c.getIdCentre());
-        value.put(CentreDAO.Centre_City, c.getVilleCentre());
+        value.put(CentreDAO.City_Key, c.getIdVille());
 
         mDb.insert(CentreDAO.Centre_Table_Name, null, value);
 

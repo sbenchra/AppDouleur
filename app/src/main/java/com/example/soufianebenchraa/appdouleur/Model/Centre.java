@@ -3,12 +3,12 @@ package com.example.soufianebenchraa.appdouleur.Model;
 public class Centre {
 
 	private int IdCentre;
-	private String VilleCentre;
+	private int IdVille;
 	private String NomCentre;
 
-    public Centre(int idCentre, String villeCentre, String nomCentre) {
+    public Centre(int idCentre, int idVille, String nomCentre) {
         IdCentre = idCentre;
-        VilleCentre = villeCentre;
+        IdVille = idVille;
         NomCentre = nomCentre;
     }
 
@@ -20,12 +20,12 @@ public class Centre {
         IdCentre = idCentre;
     }
 
-    public String getVilleCentre() {
-        return VilleCentre;
+    public int getIdVille() {
+        return IdVille;
     }
 
-    public void setVilleCentre(String villeCentre) {
-        VilleCentre = villeCentre;
+    public void setIdVille(int idVille) {
+        IdVille = idVille;
     }
 
     public String getNomCentre() {
