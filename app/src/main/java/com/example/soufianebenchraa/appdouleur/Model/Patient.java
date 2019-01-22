@@ -11,14 +11,18 @@ public class Patient {
 	private String PrenomPatient;
 	private String DateNaissancePatient;
 	private String SexePatient;
+    private String PseudoPatient;
+    private String MotDePassePatient;
 
-    public Patient(int idPatient, int idLit, String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient) {
+    public Patient(int idPatient, int idLit, String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient) {
         IdPatient = idPatient;
         IdLit = idLit;
         NomPatient = nomPatient;
         PrenomPatient = prenomPatient;
         DateNaissancePatient = dateNaissancePatient;
         SexePatient = sexePatient;
+        PseudoPatient = pseudoPatient;
+        MotDePassePatient = motDePassePatient;
     }
 
     public int getIdPatient() {
@@ -67,5 +71,21 @@ public class Patient {
 
     public void setSexePatient(String sexePatient) {
         SexePatient = sexePatient;
+    }
+
+    public String getPseudoPatient() {
+        return PseudoPatient;
+    }
+
+    public void setPseudoPatient(String pseudoPatient) {
+        PseudoPatient = pseudoPatient;
+    }
+
+    public String getMotDePassePatient() {
+        return MotDePassePatient;
+    }
+
+    public void setMotDePassePatient(String motDePassePatient) {
+        MotDePassePatient = motDePassePatient;
     }
 }

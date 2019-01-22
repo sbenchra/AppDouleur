@@ -9,6 +9,8 @@ public class MedecinDAO extends DAOBase {
     public static final String Medecin_FName ="PrenomMedecin";
     public static final String Medecin_LName ="NomMedecin";
     public static final String Medecin_Number ="NumeroMedecin";
+    public static final String Medecin_Pseudo = "MedecinPatient";
+    public static final String Medecin_MotDePasse = "MedecinMotDePasse";
     public static final String Medecin_Table_NAME = "Medecin";
 
     public MedecinDAO(Context pContext) {
@@ -22,6 +24,8 @@ public class MedecinDAO extends DAOBase {
         value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());
         value.put(MedecinDAO.Medecin_LName, m.getNomMedecin());
         value.put(MedecinDAO.Medecin_Number, m.getNumeroMedecin());
+        value.put(MedecinDAO.Medecin_Pseudo, m.getPseudoMedecin());
+        value.put(MedecinDAO.Medecin_MotDePasse, m.getMotDePasseMedecin());
 
         mDb.insert(Medecin_Table_NAME, null, value);
     }
@@ -37,21 +41,25 @@ public class MedecinDAO extends DAOBase {
         value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());
         value.put(MedecinDAO.Medecin_LName, m.getNomMedecin());
         value.put(MedecinDAO.Medecin_Number, m.getNumeroMedecin());
+        value.put(MedecinDAO.Medecin_Pseudo, m.getPseudoMedecin());
+        value.put(MedecinDAO.Medecin_MotDePasse, m.getMotDePasseMedecin());
         mDb.update(Medecin_Table_NAME, value, Medecin_Key  + " = ?", new String[] {String.valueOf(m.getIdMedecin())});
 
     }
 
     public Medecin selectionnerMedecin(int id)
     {
-        Cursor c = mDb.rawQuery("select PrenomMedecin,NomMedecin,NumeroMedecin from " + Medecin_Table_NAME + " where IdMedecin = ? ", new String[]{id + ""});
+        Cursor c = mDb.rawQuery("select PrenomMedecin,NomMedecin,NumeroMedecin,PseudoMedecin,MotDepasseMedecin from " + Medecin_Table_NAME + " where IdMedecin = ? ", new String[]{id + ""});
 
         String PrenomMedecin = c.getString(1);
 
         String NomMedecin = c.getString(2);
 
         String NumeroMedecin = c.getString(3);
+        String PseudoMedecin = c.getString(4);
+        String MotDePasseMedecin= c.getString(5);
 
-        Medecin m = new Medecin(id,PrenomMedecin, NomMedecin,NumeroMedecin);
+        Medecin m = new Medecin(id,PrenomMedecin, NomMedecin,NumeroMedecin,PseudoMedecin,MotDePasseMedecin);
 
         return m;
     }

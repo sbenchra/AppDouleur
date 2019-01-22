@@ -13,8 +13,9 @@ public class PatientDAO extends DAOBase {
     public static final String Patient_Lit = "IdLit";
     public static final String Patient_Medecin="IdMedcin";
     public static final String Patient_Birthdate = "DateNaissancePatient";
-
     public static final String Patient_Sexe = "SexePatient";
+    public static final String Patient_Pseudo = "PseudoPatient";
+    public static final String Patient_MotDePasse = "PatientMotDePasse";
     public static final String Patient_TABLE_NAME = "Patient";
 
     public PatientDAO(Context pContext) {
@@ -31,7 +32,7 @@ public class PatientDAO extends DAOBase {
         value.put(PatientDAO.Patient_Sexe, p.getSexePatient());
         value.put(PatientDAO.Patient_Lit, p.getIdLit());
         value.put(PatientDAO.Patient_Medecin, p.getIdPatient());
-
+        value.put(PatientDAO.Patient_Medecin, p.getIdPatient());
 
         mDb.insert(Patient_TABLE_NAME, null, value);
 

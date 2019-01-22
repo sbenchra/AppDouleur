@@ -4,9 +4,9 @@ public class Hopital {
 
 	private int IdHopital;
 	private int IdCentre;
-	private int NomHopital;
+	private String NomHopital;
 
-    public Hopital(int idHopital, int idCentre, int nomHopital) {
+    public Hopital(int idHopital, int idCentre, String nomHopital) {
         IdHopital = idHopital;
         IdCentre = idCentre;
         NomHopital = nomHopital;
@@ -28,11 +28,11 @@ public class Hopital {
         IdCentre = idCentre;
     }
 
-    public int getNomHopital() {
+    public String getNomHopital() {
         return NomHopital;
     }
 
-    public void setNomHopital(int nomHopital) {
+    public void setNomHopital(String nomHopital) {
         NomHopital = nomHopital;
     }
 }

@@ -6,12 +6,16 @@ public class Medecin {
 	private String NomMedecin;
 	private String PrenomMedecin;
 	private String NumeroMedecin;
+	private String PseudoMedecin;
+	private String MotDePasseMedecin;
 
-    public Medecin(int idMedecin, String nomMedecin, String prenomMedecin, String numeroMedecin) {
+    public Medecin(int idMedecin, String nomMedecin, String prenomMedecin, String numeroMedecin, String pseudoMedecin, String motDePasseMedecin) {
         IdMedecin = idMedecin;
         NomMedecin = nomMedecin;
         PrenomMedecin = prenomMedecin;
         NumeroMedecin = numeroMedecin;
+        PseudoMedecin = pseudoMedecin;
+        MotDePasseMedecin = motDePasseMedecin;
     }
 
     public int getIdMedecin() {
@@ -44,5 +48,21 @@ public class Medecin {
 
     public void setNumeroMedecin(String numeroMedecin) {
         NumeroMedecin = numeroMedecin;
+    }
+
+    public String getPseudoMedecin() {
+        return PseudoMedecin;
+    }
+
+    public void setPseudoMedecin(String pseudoMedecin) {
+        PseudoMedecin = pseudoMedecin;
+    }
+
+    public String getMotDePasseMedecin() {
+        return MotDePasseMedecin;
+    }
+
+    public void setMotDePasseMedecin(String motDePasseMedecin) {
+        MotDePasseMedecin = motDePasseMedecin;
     }
 }

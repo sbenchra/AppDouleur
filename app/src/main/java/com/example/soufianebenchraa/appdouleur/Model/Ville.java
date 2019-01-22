@@ -3,9 +3,9 @@ package com.example.soufianebenchraa.appdouleur.Model;
 public class Ville {
 
 	private int IdVille;
-	private int NomVille;
+	private String NomVille;
 
-	public Ville(int idVille, int nomVille) {
+	public Ville(int idVille, String nomVille) {
 		IdVille = idVille;
 		NomVille = nomVille;
 	}
@@ -18,11 +18,11 @@ public class Ville {
 		IdVille = idVille;
 	}
 
-	public int getNomVille() {
+	public String getNomVille() {
 		return NomVille;
 	}
 
-	public void setNomVille(int nomVille) {
+	public void setNomVille(String nomVille) {
 		NomVille = nomVille;
 	}
 }

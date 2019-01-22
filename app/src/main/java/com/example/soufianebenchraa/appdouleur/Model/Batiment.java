@@ -4,9 +4,9 @@ public class Batiment {
 
 	private int IdBatiment;
 	private int IdHopital;
-	private int NomBatiment;
+	private String NomBatiment;
 
-    public Batiment(int idBatiment, int idHopital, int nomBatiment) {
+    public Batiment(int idBatiment, int idHopital, String nomBatiment) {
         IdBatiment = idBatiment;
         IdHopital = idHopital;
         NomBatiment = nomBatiment;
@@ -28,11 +28,11 @@ public class Batiment {
         IdHopital = idHopital;
     }
 
-    public int getNomBatiment() {
+    public String getNomBatiment() {
         return NomBatiment;
     }
 
-    public void setNomBatiment(int nomBatiment) {
+    public void setNomBatiment(String nomBatiment) {
         NomBatiment = nomBatiment;
     }
 }
