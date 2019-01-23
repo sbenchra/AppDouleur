@@ -44,7 +44,8 @@
         app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.13"
+        android:onClick="addMedecin"/>
 
     <TextView
         android:id="@+id/textView14"
@@ -82,39 +83,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <LinearLayout
-        android:layout_width="349dp"
-        android:layout_height="397dp"
+
+
+
+    <TableLayout
+        android:id="@+id/displayedMedecinsHeaders"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="128dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:orientation="horizontal"
+        android:stretchColumns="*"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <TableRow
+            android:id="@+id/headerTitles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="3dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nom" />
+            <TextView
+                android:id="@+id/headerLName"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nom" />
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="16dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Prenom" />
+            <TextView
+                android:id="@+id/headerFName"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Prenom" />
 
-        <TextView
-            android:id="@+id/textView53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Numero de téléphone" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/headerNumber"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Numero de téléphone" />
+
+
+        </TableRow>
+        <!-- Add a blue line. -->
+        <View
+            android:background="@color/colorPrimary"
+            android:layout_height="5dp"/>
+
+
+    </TableLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scrollbars="none">
+
+                <TableLayout
+                    android:id="@+id/displayedMedecins"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:orientation="horizontal"
+                    android:stretchColumns="*"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -17,6 +17,11 @@ public class Medecin {
         PseudoMedecin = pseudoMedecin;
         MotDePasseMedecin = motDePasseMedecin;
     }
+    public Medecin(String nomMedecin, String prenomMedecin, String numeroMedecin) {
+        NomMedecin = nomMedecin;
+        PrenomMedecin = prenomMedecin;
+        NumeroMedecin = numeroMedecin;
+    }
 
     public int getIdMedecin() {
         return IdMedecin;

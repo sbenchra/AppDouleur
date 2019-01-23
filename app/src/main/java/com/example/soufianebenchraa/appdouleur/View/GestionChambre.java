@@ -8,6 +8,7 @@ public class GestionChambre extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gestionchambre);
+        //TODO il faut créer le layout gestionchambre
+        //setContentView(R.layout.gestionchambre);
     }
 }

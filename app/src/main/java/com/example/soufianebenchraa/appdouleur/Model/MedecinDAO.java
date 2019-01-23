@@ -3,6 +3,10 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MedecinDAO extends DAOBase {
     public static final String Medecin_Key = "IdMedecin";
@@ -17,7 +21,40 @@ public class MedecinDAO extends DAOBase {
         super(pContext);
     }
 
-    public void ajouterMedecin(Medecin m)
+    /**
+     * il faut appeller cette methodes avec les données recuperer depuis l'interface (layout)
+     */
+    public Medecin addMedecin() {
+        Medecin m = new Medecin(1,"Belhadj","Anas","0621524555","pseudo","mot de passe");
+        long rowId = ajouterMedecin(m);
+        if(rowId!=-1) {
+            return m;
+        } else {
+            //il faut afficher une erreur au utilisateur
+            Log.e("Ajout medecin","Une erreur est survenue lors de l'ajout du médecin");
+            return null;
+        }
+    }
+
+    public List<Medecin > getAll() {
+
+        List<Medecin> medecins = new ArrayList<>();
+
+        Cursor cursor = getReadableDatabase().rawQuery("select * from "+Medecin_Table_NAME,null);
+        if(cursor!=null) {
+            while(cursor.moveToNext()) {
+                String lName = cursor.getString(cursor.getColumnIndex(Medecin_LName));
+                String fName = cursor.getString(cursor.getColumnIndex(Medecin_FName));
+                String number = cursor.getString(cursor.getColumnIndex(Medecin_Number));
+
+                medecins.add(new Medecin(lName,fName,number));
+            }
+            cursor.close();
+        }
+        return medecins;
+    }
+
+    public long ajouterMedecin(Medecin m)
     {
         super.open();
         ContentValues value = new ContentValues();
@@ -27,7 +64,7 @@ public class MedecinDAO extends DAOBase {
         value.put(MedecinDAO.Medecin_Pseudo, m.getPseudoMedecin());
         value.put(MedecinDAO.Medecin_MotDePasse, m.getMotDePasseMedecin());
 
-        mDb.insert(Medecin_Table_NAME, null, value);
+        return mDb.insert(Medecin_Table_NAME, null, value);
     }
 
     public void supprimerMedecin(long id)

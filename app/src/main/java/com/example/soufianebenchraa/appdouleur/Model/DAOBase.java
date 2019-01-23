@@ -49,10 +49,15 @@ public abstract class DAOBase  {
 
 
 
-  public SQLiteDatabase getDb() {
-
+  SQLiteDatabase getDb() {
     return mDb;
-
   }
+
+
+  SQLiteDatabase getReadableDatabase() {
+    return mHandler.getReadableDatabase();
+  }
+
+
 
 }

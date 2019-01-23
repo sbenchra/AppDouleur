@@ -12,14 +12,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Ville_Name="NomVille";
 
-    public static final String Ville_Table_Name="Centre";
+    public static final String Ville_Table_Name="Ville";
 
 
     public static final String Ville_Table_Create=
             "CREATE TABLE "+ Ville_Table_Name + "(" +
-                    Ville_Key +"INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Ville_Name +"TEXT,"+
-                    Ville_Key +"INTEGER,FOREIGN KEY(IdVille) REFERENCES Ville(IdVille));";
+                    Ville_Key +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Ville_Name +" TEXT)";
+                    //TODO y a une clé étrangere ici ?
+                    //Ville_Key +" INTEGER,FOREIGN KEY(IdVille) REFERENCES Ville(IdVille));";
 
 
 
@@ -35,9 +36,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Centre_Table_Create=
             "CREATE TABLE "+ Centre_Table_Name + "(" +
-                    Centre_Key +"INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Centre_Name +"TEXT,"+
-                    CityC_Key +"INTEGER,FOREIGN KEY(IdVille) REFERENCES Ville(IdVille));";
+                    Centre_Key +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Centre_Name +" TEXT,"+
+                    CityC_Key +" INTEGER,FOREIGN KEY(IdVille) REFERENCES Ville(IdVille));";
 
 
 
@@ -50,11 +51,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Service_Table_Create =
             " CREATE TABLE " + Service_Table_Name + "(" +
-                    Service_Key+ "INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Service_Etage + "INTEGER PRIMARY KEY,"+
-                    Service_Ail + "TEXT PRIMARY KEY,"+
-                    Service_Name + "TEXT," +
-                    Service_Centre + "INTEGER," +
+                    Service_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Service_Etage + " INTEGER,"+
+                    Service_Ail + " TEXT ,"+
+                    Service_Name + " TEXT," +
+                    Service_Centre + " INTEGER," +
                     "FOREIGN KEY(IdCentre) REFERENCES Centre(IdCentre))";
 
 
@@ -66,9 +67,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Lit_Table_Create =
             "CREATE TABLE " + Lit_Table_Name + "(" +
-                    Lit_Key + "INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Lit_Service + "INTEGER,"+
-                    Lit_NumeroLit + "INTEGER)";
+                    Lit_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Lit_Service + " INTEGER,"+
+                    Lit_NumeroLit + " INTEGER)";
 
 
     public static final String Medecin_Key = "IdMedecin";
@@ -82,10 +83,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Medecin_Table_Create =
 
             "CREATE TABLE " + Medecin_Table_NAME + "(" +
-                    Medecin_Key + "INTERGER PRIMARY KEY AUTOINCREMENT,"+
-                    Medecin_FName + "TEXT,"+
-                    Medecin_LName + "TEXT,"+
-                    Medecin_Number + "INTEGER,"+
+                    Medecin_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Medecin_FName + " TEXT,"+
+                    Medecin_LName + " TEXT,"+
+                    Medecin_Number + " INTEGER,"+
                     Medecin_Pseudo +" TEXT,"+
                     Medecin_MotDePasse +" TEXT)";
 
@@ -97,7 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Patient_LName = "PrenomPatient";
 
     public static final String Patient_Lit = "IdLit";
-    public static final String Patient_Medecin="IdMedcin";
+    public static final String Patient_Medecin="IdMedecin";
     public static final String Patient_Birthdate = "DateNaissancePatient";
 
     public static final String Patient_Sexe = "SexePatient";
@@ -137,11 +138,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Douleur_Table_Create =
             "CREATE TABLE " + Douleur_Table_Name + "("+
-                    Douleur_Key+ "INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Douleur_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Patient_id + "  INTEGER ,"+
-                    Douleur_Intensity + "INTEGER ,"+
-                    Douleur_Time + "TEXT,"+
-                    Douleur_Body + "TEXT" +
+                    Douleur_Intensity + " INTEGER ,"+
+                    Douleur_Time + " TEXT,"+
+                    Douleur_Body + " TEXT" +
                     ", FOREIGN KEY(IdPatient) REFERENCES Patient(PatientId));";
 
 
@@ -152,8 +153,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Intervention_Table_Create =
             "CREATE TABLE "+ Intervention_Table_Name + "(" +
-                    Intervention_Key + "INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Intervention_Name + "TEXT);";
+                    Intervention_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Intervention_Name + " TEXT);";
 
 
 
@@ -167,10 +168,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Subit_Table_Create =
             "CREATE TABLE " + Subit_Table_Name + "("+
-                    Subit_Patient+ "INTEGER ,"+
-                    Subit_Intervention + "INTEGER"+
-                    Subit_Date + "DATE" +
-                    Subit_Heure +"TEXT"+
+                    Subit_Patient+ " INTEGER ,"+
+                    Subit_Intervention + " INTEGER,"+
+                    Subit_Date + " DATE," +
+                    Subit_Heure +" TEXT"+
                     ",FOREIGN KEY(IdPatient) REFERENCES Patient(PatientId)" +
                     ",FOREIGN KEY(IdTypeIntervention) REFERENCES TypeIntervention(IdTypeIntervention));";
 
@@ -180,13 +181,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Hopital_Name="NomHopital";
     public static final String CentreH_Key="IdCentre";
 
-    public static final String Hopital_Table_Name="Centre";
+    public static final String Hopital_Table_Name="Hopital";
 
     public static final String Hopital_Table_Create =
             "CREATE TABLE " + Hopital_Table_Name + "("+
-                    Hopital_Key+ "INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                    Hopital_Name + "TEXT"+
-                    CentreH_Key + "INTEGER" +
+                    Hopital_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                    Hopital_Name + " TEXT,"+
+                    CentreH_Key + " INTEGER" +
                     ",FOREIGN KEY(IdCentre) REFERENCES Centre(IdCentre));";
 
     public static final String Batiment_Key="IdBatiment";
@@ -197,9 +198,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Batiment_Table_Create =
             "CREATE TABLE " + Batiment_Table_Name + "("+
-                    Batiment_Key+ "INTEGER PRIMARY KEY AUTOINCREMENT ,"+
-                    Batiment_Name + "TEXT"+
-                    HopitalB_Key + "INTEGER" +
+                    Batiment_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
+                    Batiment_Name + " TEXT,"+
+                    HopitalB_Key + " INTEGER" +
                     ",FOREIGN KEY(IdBatiment) REFERENCES Hopital(IdBatiment));";
 
 
