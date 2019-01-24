@@ -33,7 +33,7 @@ public class GestionPatient extends AppCompatActivity {
     private void populateDisplayedMedecins() {
         List<Patient> patients = patientDAO.getAll();
         if(patients!=null && patients.size()>0) {
-            for (List patient:patients) {
+            for (Patient patient:patients) {
                 addMedecinToDisplayedList(patient);
             }
         }

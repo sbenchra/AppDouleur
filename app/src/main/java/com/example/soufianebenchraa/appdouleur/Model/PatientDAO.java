@@ -126,8 +126,16 @@ public class PatientDAO extends DAOBase {
 
     }
 
-    public void selectionnerPatient(int id)
+    public int CheckPatient(String pseudoname, String motdepasse)
     {
-
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Patient where PseudoPatient = ? AND PatientMotDePasse = ? ",new String[]{pseudoname + motdepasse});
+        if(cursor!=null)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
