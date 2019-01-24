@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CentreDAO extends DAOBase {
     public static final String Centre_Key="IdCentre";
     public static final String City_Key="IdVille";
@@ -14,7 +17,7 @@ public class CentreDAO extends DAOBase {
         super(pContext);
     }
 
-
+/**
     public Centre SelectionnerCentre(int idVille)
 
     {
@@ -32,7 +35,22 @@ public class CentreDAO extends DAOBase {
         return C;
 
     }
+**/
 
+
+    public List<String> getAllCentre() {
+        List<String> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Centre", null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String nomCentre = cursor.getString(cursor.getColumnIndex("NomCentre"));
+                l.add(nomCentre);
+            }
+
+
+        }
+        return l;
+    }
 
 
 }

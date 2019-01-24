@@ -3,24 +3,26 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.Context;
 import android.database.Cursor;
 
-public class BatimentDAO extends DAOBase{
+import java.util.ArrayList;
+import java.util.List;
+
+public class BatimentDAO extends DAOBase {
 
     public BatimentDAO(Context pContext) {
         super(pContext);
     }
 
-    public Batiment SelectionnerCentre(int idHopital)
+    public List<String> getAllBatiment() {
+        List<String> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select NomBatiment from Batiment", null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String nomBatiement = cursor.getString(cursor.getColumnIndex("NomBatiment"));
+                l.add(nomBatiement);
+            }
 
-    {
 
-        Cursor c = mDb.rawQuery("select * from Batiment NATURAL JOIN Hopital" + " where IdHopital= ? ", new String[]{idHopital + ""});
-
-        int IdBatiement = c.getInt(0);
-        String NomBatiment = c.getString(1);
-
-        Batiment b = new Batiment(IdBatiement,idHopital,NomBatiment);
-
-        return b;
-
+        }
+        return l;
     }
 }

@@ -2,6 +2,7 @@ package com.example.soufianebenchraa.appdouleur.View;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,24 +47,28 @@ public class AjouterMedecin extends AppCompatActivity {
         button18.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (NomMedecin.isEmpty() || PrenomMedecin.isEmpty() || NumeroMedecin.isEmpty() || PseudoMedecin.isEmpty() || PasswordMedecin.isEmpty())
-                {
-                    Toast.makeText(AjouterMedecin.this,"Les champs ne sont pas complets.",Toast.LENGTH_LONG);
-                }
-                else
-                {
+
                     double a = random();
                     int b = (int) a;
+
                     Medecin m = new Medecin(b,NomMedecin,PrenomMedecin,NumeroMedecin,PseudoMedecin,PasswordMedecin);
-                    medecinDAO.ajouterMedecin(m);
+
+                     long rowId = medecinDAO.ajouterMedecin(m);
+                     if(rowId!=-1) {
+
+                     } else {
+                     //il faut afficher une erreur au utilisateur
+                     Log.e("Ajout medecin","Une erreur est survenue lors de l'ajout du médecin");
+
+                     }
+
+
                 }
-            }
+
         });
 
 
 
-        Medecin m = new Medecin(0,NomMedecin,PrenomMedecin,NumeroMedecin,PseudoMedecin,PasswordMedecin);
 
-        medecinDAO.ajouterMedecin(m);
     }
 }

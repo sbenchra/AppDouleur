@@ -3,13 +3,14 @@ package com.example.soufianebenchraa.appdouleur.Model;
 public class Hopital {
 
 	private int IdHopital;
-	private int IdCentre;
-	private String NomHopital;
 
-    public Hopital(int idHopital, int idCentre, String nomHopital) {
+	private String NomHopital;
+	private Centre centre;
+
+    public Hopital(int idHopital, String nomHopital, Centre centre) {
         IdHopital = idHopital;
-        IdCentre = idCentre;
         NomHopital = nomHopital;
+        this.centre = centre;
     }
 
     public int getIdHopital() {
@@ -20,19 +21,19 @@ public class Hopital {
         IdHopital = idHopital;
     }
 
-    public int getIdCentre() {
-        return IdCentre;
-    }
-
-    public void setIdCentre(int idCentre) {
-        IdCentre = idCentre;
-    }
-
     public String getNomHopital() {
         return NomHopital;
     }
 
     public void setNomHopital(String nomHopital) {
         NomHopital = nomHopital;
+    }
+
+    public Centre getCentre() {
+        return centre;
+    }
+
+    public void setCentre(Centre centre) {
+        this.centre = centre;
     }
 }

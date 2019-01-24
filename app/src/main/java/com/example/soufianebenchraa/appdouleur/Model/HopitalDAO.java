@@ -3,6 +3,9 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HopitalDAO extends DAOBase {
 
 
@@ -10,21 +13,20 @@ public class HopitalDAO extends DAOBase {
         super(pContext);
     }
 
-    public Hopital SelectionnerCentre(int idCentre)
 
-    {
+    public List<String> getAllHopital() {
+        List<String> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Hopital", null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String nomHopital = cursor.getString(cursor.getColumnIndex("NomHopital"));
+                l.add(nomHopital);
+            }
 
-        Cursor c = mDb.rawQuery("select * from Hopital NATURAL JOIN Centre" + " where IdCentre = ? ", new String[]{idCentre + ""});
 
-        int IdHopital = c.getInt(0);
-        String NomHopital = c.getString(1);
-
-
-
-        Hopital h = new Hopital(IdHopital,idCentre,NomHopital);
-
-        return h;
-
+        }
+        return l;
     }
+
 
 }

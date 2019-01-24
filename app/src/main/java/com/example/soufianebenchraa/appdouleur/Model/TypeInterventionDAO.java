@@ -12,11 +12,17 @@ public class TypeInterventionDAO extends DAOBase {
 
   public static final String Intervention_Table_Name="TypeIntervention";
 
+
+
+
   public void ajouterTypeIntervention(TypeIntervention intervention)
   {
     super.open();
     ContentValues value = new ContentValues();
+      value.put(TypeInterventionDAO.Intervention_Name, intervention.getDateIntervention());
+      value.put(TypeInterventionDAO.Intervention_Name, intervention.getHeureIntervention());
     value.put(TypeInterventionDAO.Intervention_Name, intervention.getLibelleIntevention());
+
     mDb.insert(Intervention_Table_Name, null, value);
 
   }

@@ -6,15 +6,7 @@ public class Service {
 	private int Etage;
 	private String Ail;
 	private String LibelleService;
-	private int IdCentre;
-
-    public Service(int idService, int etage, String ail, String libelleService, int idCentre) {
-        IdService = idService;
-        Etage = etage;
-        Ail = ail;
-        LibelleService = libelleService;
-        IdCentre = idCentre;
-    }
+	private Batiment batiment;
 
     public int getIdService() {
         return IdService;
@@ -48,11 +40,20 @@ public class Service {
         LibelleService = libelleService;
     }
 
-    public int getIdCentre() {
-        return IdCentre;
+    public Batiment getBatiment() {
+        return batiment;
     }
 
-    public void setIdCentre(int idCentre) {
-        IdCentre = idCentre;
+    public void setBatiment(Batiment batiment) {
+        this.batiment = batiment;
+    }
+
+    public Service(int idService, int etage, String ail, String libelleService, Batiment batiment) {
+
+        IdService = idService;
+        Etage = etage;
+        Ail = ail;
+        LibelleService = libelleService;
+        this.batiment = batiment;
     }
 }

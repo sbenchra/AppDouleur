@@ -10,7 +10,7 @@ public class ServiceDAO extends DAOBase {
   public static final String Service_Ail="Ail";
   public static final String Service_Name="LibelleService";
   public static final String Service_Table_Name="Service";
-  public static final String Service_Centre="IdCentre";
+  public static final String Service_Batiment="IdBatiment";
 
   public ServiceDAO(Context pContext) {
     super(pContext);
@@ -23,7 +23,7 @@ public class ServiceDAO extends DAOBase {
     value.put(ServiceDAO.Service_Etage, s.getEtage());
     value.put(ServiceDAO.Service_Ail, s.getAil());
     value.put(ServiceDAO.Service_Name, s.getLibelleService());
-    value.put(ServiceDAO.Service_Centre, s.getIdCentre());
+    value.put(ServiceDAO.Service_Batiment, s.getBatiment().getIdBatiment());
   }
 
   public void supprimerService(long id)
@@ -45,11 +45,11 @@ public class ServiceDAO extends DAOBase {
 
 
 
-  public Service SelectionnerService(int idBatiment)
+  public Service SelectionnerService(Batiment b)
 
   {
 
-    Cursor c = mDb.rawQuery("select * from Service NATURAL JOIN Batiment" + " where IdService = ? ", new String[]{idBatiment + ""});
+    Cursor c = mDb.rawQuery("select * from Service NATURAL JOIN Batiment" + " where IdService = ? ", new String[]{b.getIdBatiment() + ""});
 
     int IdService = c.getInt(0);
     int etage  = c.getInt(1);
@@ -59,7 +59,7 @@ public class ServiceDAO extends DAOBase {
 
 
 
-    Service s = new Service(IdService,etage,Ail,NomService,idBatiment);
+    Service s = new Service(IdService,etage,Ail,NomService,b);
 
     return s;
 

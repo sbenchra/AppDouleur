@@ -3,6 +3,9 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VilleDAO extends DAOBase{
 
 
@@ -10,7 +13,7 @@ public class VilleDAO extends DAOBase{
         super(pContext);
     }
 
-    public Ville SelectionnerCentre(String Nomville)
+   /** public Ville SelectionnerCentre(String Nomville)
 
     {
 
@@ -26,6 +29,21 @@ public class VilleDAO extends DAOBase{
 
         return v;
 
-    }
+    }**/
+
+   public List<String> getAllVille() {
+       List<String> l = new ArrayList<>();
+       Cursor cursor = getReadableDatabase().rawQuery("select * from Ville", null);
+       if (cursor != null) {
+           while (cursor.moveToNext()) {
+               String nomVille = cursor.getString(cursor.getColumnIndex("NomVille"));
+               l.add(nomVille);
+           }
+
+
+       }
+       return l;
+   }
+
 
 }

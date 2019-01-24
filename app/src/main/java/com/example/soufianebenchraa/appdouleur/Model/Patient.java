@@ -5,20 +5,32 @@ import java.util.*;
 
 public class Patient {
 
-	private int IdPatient;
-	private int IdLit;
-	private String NomPatient;
-	private String PrenomPatient;
-	private String DateNaissancePatient;
-	private String SexePatient;
+    private int IdPatient;
+
+    private String NomPatient;
+    private String PrenomPatient;
+    private String DateNaissancePatient;
+    private String SexePatient;
     private String PseudoPatient;
     private String MotDePassePatient;
     private int EtatPatient;
+    private Lit lit;
+    private Medecin medecin;
+    private TypeIntervention intervention;
 
+    public Patient(String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, int etatPatient, Lit lit, Medecin medecin, TypeIntervention intervention) {
+        NomPatient = nomPatient;
+        PrenomPatient = prenomPatient;
+        DateNaissancePatient = dateNaissancePatient;
+        SexePatient = sexePatient;
+        EtatPatient = etatPatient;
+        this.lit = lit;
+        this.medecin = medecin;
+        this.intervention = intervention;
+    }
 
-    public Patient(int idPatient, int idLit, String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient) {
+    public Patient(int idPatient, String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, Lit lit, Medecin medecin, TypeIntervention intervention) {
         IdPatient = idPatient;
-        IdLit = idLit;
         NomPatient = nomPatient;
         PrenomPatient = prenomPatient;
         DateNaissancePatient = dateNaissancePatient;
@@ -26,6 +38,9 @@ public class Patient {
         PseudoPatient = pseudoPatient;
         MotDePassePatient = motDePassePatient;
         EtatPatient = etatPatient;
+        this.lit = lit;
+        this.medecin = medecin;
+        this.intervention = intervention;
     }
 
     public int getIdPatient() {
@@ -34,14 +49,6 @@ public class Patient {
 
     public void setIdPatient(int idPatient) {
         IdPatient = idPatient;
-    }
-
-    public int getIdLit() {
-        return IdLit;
-    }
-
-    public void setIdLit(int idLit) {
-        IdLit = idLit;
     }
 
     public String getNomPatient() {
@@ -98,5 +105,29 @@ public class Patient {
 
     public void setEtatPatient(int etatPatient) {
         EtatPatient = etatPatient;
+    }
+
+    public Lit getLit() {
+        return lit;
+    }
+
+    public void setLit(Lit lit) {
+        this.lit = lit;
+    }
+
+    public Medecin getMedecin() {
+        return medecin;
+    }
+
+    public void setMedecin(Medecin medecin) {
+        this.medecin = medecin;
+    }
+
+    public TypeIntervention getIntervention() {
+        return intervention;
+    }
+
+    public void setIntervention(TypeIntervention intervention) {
+        this.intervention = intervention;
     }
 }

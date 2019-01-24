@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PatientDAO extends DAOBase {
@@ -38,42 +39,63 @@ public class PatientDAO extends DAOBase {
 
 
 
-    public List<List > getAll() {
+    public List<Patient > getAll() {
 
-        List<List> lists = new ArrayList<>();
+        List<Patient> patients = new ArrayList<>();
 
-        Cursor cursor = getReadableDatabase().rawQuery("select NomPatient,PrenomPatient,NumeroLit,SexePatient,EtatPatient,Etage,Ail,NomBatiment,NomHopital,NomCentre from Patient" +
-                " NATURAL JOIN Service NATURAL JOIN Batiment NATURAL JOIN Hopital NATURAL JOIN Centre",null);
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Patient" +
+                " NATURAL JOIN Lit NATURAL JOIN Service NATURAL JOIN Medecin NATURAL JOIN TypeIntervention ",null);
         if(cursor!=null) {
             while(cursor.moveToNext()) {
-                List l = new ArrayList();
+
                 String lName = cursor.getString(cursor.getColumnIndex(Patient_LName));
                 String fName = cursor.getString(cursor.getColumnIndex(Patient_FName));
-                int numberlit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
                 String SexePatient = cursor.getString(cursor.getColumnIndex("SexePatient"));
+                String DateNaissance = cursor.getString(cursor.getColumnIndex("DateNaissancePatient"));
+                String PseudoPatient = cursor.getString(cursor.getColumnIndex("PseudoPatient"));
+                String MotdepassePatient = cursor.getString(cursor.getColumnIndex("PatientMotdePasse"));
                 int EtatPatient = cursor.getInt( cursor.getColumnIndex("EtatPatient"));
-                int Etage = cursor.getInt( cursor.getColumnIndex("Etage"));
-                String Ail = cursor.getString( cursor.getColumnIndex("Ail"));
-                String NomBatiment = cursor.getString( cursor.getColumnIndex("NomBatiment"));
-                String NomHopital = cursor.getString( cursor.getColumnIndex("NomHopital"));
-                String NomCentre = cursor.getString( cursor.getColumnIndex("NomCentre"));
+                int idlit = cursor.getInt(cursor.getColumnIndex("IdLit"));
+                int numerolit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
+                int idService = cursor.getInt(cursor.getColumnIndex("IdService"));
+                String nomservice = cursor.getString(cursor.getColumnIndex("LibelleService"));
 
-                l.add(lName);
-                l.add(fName);
-                l.add(numberlit);
-                l.add(SexePatient);
-                l.add(EtatPatient);
-                l.add(Etage);
-                l.add(Ail);
-                l.add(NomBatiment);
-                l.add(NomHopital);
-                l.add(NomCentre);
+                String ail = cursor.getString(cursor.getColumnIndex("Ail"));
+                int etage = cursor.getInt(cursor.getColumnIndex("Etage"));
+                int idbatiment = cursor.getInt(cursor.getColumnIndex("IdBatiment"));
+                String nombatiment = cursor.getString(cursor.getColumnIndex("NomBatiment"));
+                int idhopital = cursor.getInt(cursor.getColumnIndex("IdHopital"));
+                String nomhopital = cursor.getString(cursor.getColumnIndex("NomHopital"));
 
-                lists.add(l);
+                String nomcentre = cursor.getString(cursor.getColumnIndex("NomCentre"));
+                int idcentre = cursor.getInt(cursor.getColumnIndex("IdCentre"));
+                int idville = cursor.getInt(cursor.getColumnIndex("IdVille"));
+                String nomville = cursor.getString(cursor.getColumnIndex("nomville"));
+                int idIntervention = cursor.getInt(cursor.getColumnIndex("IdIntervention"));
+                String libelleintervention = cursor.getString(cursor.getColumnIndex("LibelleIntervention"));
+                String dateintervention = cursor.getString(cursor.getColumnIndex("DateIntervention"));
+                String heureintervention = cursor.getString(cursor.getColumnIndex("HeureIntevention"));
+                int idmedecin = cursor.getInt(cursor.getColumnIndex("IdMedecin"));
+                String nommedecin = cursor.getString(cursor.getColumnIndex("NomMedecin"));
+                String prenommedecin = cursor.getString(cursor.getColumnIndex("PrenomMedecin"));
+                String numeromedecin = cursor.getString(cursor.getColumnIndex("NumeroMedecin"));
+
+                Ville v = new Ville(idville,nomville);
+                Centre c = new Centre(idcentre,nomcentre,v);
+                Hopital h = new Hopital(idhopital,nomhopital,c);
+                Batiment b = new Batiment(idbatiment,nombatiment,h);
+                Service s = new Service(idService,etage,ail,nomservice,b);
+                Lit l= new Lit(idlit,numerolit,s);
+                TypeIntervention i= new TypeIntervention(idIntervention,dateintervention,heureintervention,libelleintervention);
+                Medecin m = new Medecin(nommedecin,prenommedecin,numeromedecin);
+                Patient p = new Patient(lName,fName,DateNaissance,SexePatient,EtatPatient,l,m,i);
+                patients.add(p);
+
+
             }
             cursor.close();
         }
-        return lists;
+        return patients;
     }
 
 
@@ -85,9 +107,9 @@ public class PatientDAO extends DAOBase {
         value.put(PatientDAO.Patient_LName, p.getPrenomPatient());
         value.put(PatientDAO.Patient_Birthdate, p.getDateNaissancePatient() );
         value.put(PatientDAO.Patient_Sexe, p.getSexePatient());
-        value.put(PatientDAO.Patient_Lit, p.getIdLit());
-        value.put(PatientDAO.Patient_Medecin, p.getIdPatient());
-        value.put(PatientDAO.Patient_Medecin, p.getIdPatient());
+        value.put(PatientDAO.Patient_Lit, p.getLit().getIdLit());
+        value.put(PatientDAO.Patient_Medecin, p.getEtatPatient());
+        value.put(PatientDAO.Patient_Medecin, p.getMedecin().getIdMedecin());
 
         mDb.insert(Patient_TABLE_NAME, null, value);
 

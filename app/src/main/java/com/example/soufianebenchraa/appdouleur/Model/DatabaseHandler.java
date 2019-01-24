@@ -68,8 +68,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Lit_Table_Create =
             "CREATE TABLE " + Lit_Table_Name + "(" +
                     Lit_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Lit_Service + " INTEGER,"+
-                    Lit_NumeroLit + " INTEGER)";
+                    Lit_NumeroLit + " INTEGER,"+
+                    Lit_Service + " INTEGER)";
 
 
     public static final String Medecin_Key = "IdMedecin";
@@ -101,6 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Patient_Medecin="IdMedecin";
     public static final String Patient_Birthdate = "DateNaissancePatient";
 
+    public static final String Intervention_Key ="IdTypeIntervention";
     public static final String Patient_Sexe = "SexePatient";
     public static final String Patient_Pseudo = "PseudoPatient";
     public static final String Patient_Etat = "EtatPatient";
@@ -118,14 +119,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Patient_LName + " TEXT," +
                     Patient_Birthdate + "TEXT,"+
                     Patient_Sexe + " TEXT,"+
-                    Patient_Lit + " INTEGER, " +
-                    Patient_Medecin +" INTEGER,"+
                     Patient_Pseudo +" TEXT,"+
                     Patient_MotDePasse +" TEXT,"+
                     Patient_Etat +" INTEGER,"+
+                    Patient_Lit + " INTEGER, " +
+                    Patient_Medecin +" INTEGER,"+
+                    Intervention_Key +"INTEGER,"+
 
 
-                    " FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
+                    " FOREIGN KEY(idIntervention) REFERENCES Intervention(IdIntervention) ,FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
 
 
 
@@ -148,34 +150,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     ", FOREIGN KEY(IdPatient) REFERENCES Patient(PatientId));";
 
 
-    public static final String Intervention_Key ="IdTypeIntervention";
     public static final String Intervention_Name ="LibelleTypeIntevention";
+    public static final String Intervention_Date="DateIntervention";
+    public static final String Intervention_Heure="HeureIntervention";
 
     public static final String Intervention_Table_Name="TypeIntervention";
 
     public static final String Intervention_Table_Create =
             "CREATE TABLE "+ Intervention_Table_Name + "(" +
                     Intervention_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Intervention_Date + " DATE," +
+                    Intervention_Heure +" TEXT,"+
                     Intervention_Name + " TEXT);";
+            ;
 
 
 
 
-    public static final String Subit_Patient="IdPatient";
-    public static final String Subit_Intervention="IdTypeIntervention";
-    public static final String Subit_Date="DateIntervention";
-    public static final String Subit_Heure="HeureIntervention";
 
-    public static final String Subit_Table_Name="Subit";
-
-    public static final String Subit_Table_Create =
-            "CREATE TABLE " + Subit_Table_Name + "("+
-                    Subit_Patient+ " INTEGER ,"+
-                    Subit_Intervention + " INTEGER,"+
-                    Subit_Date + " DATE," +
-                    Subit_Heure +" TEXT"+
-                    ",FOREIGN KEY(IdPatient) REFERENCES Patient(PatientId)" +
-                    ",FOREIGN KEY(IdTypeIntervention) REFERENCES TypeIntervention(IdTypeIntervention));";
 
 
 
@@ -227,7 +219,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Medecin_Table_Create);
         db.execSQL(Douleur_Table_Create);
         db.execSQL(Intervention_Table_Create);
-        db.execSQL(Subit_Table_Create);
 
 
 
@@ -240,7 +231,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Patient_TABLE_DROP = "DROP TABLE IF EXISTS " + Patient_TABLE_NAME + ";";
     public static final String Douleur_TABLE_DROP = "DROP TABLE IF EXISTS " + Douleur_Table_Name + ";";
     public static final String Intervention_TABLE_DROP = "DROP TABLE IF EXISTS " + Intervention_Table_Name + ";";
-    public static final String Subit_TABLE_DROP = "DROP TABLE IF EXISTS " + Subit_Table_Name+ ";";
+
     public static final String Centre_TABLE_DROP = "DROP TABLE IF EXISTS " + Centre_Table_Name+ ";";
     public static final String Batiment_TABLE_DROP = "DROP TABLE IF EXISTS " + Batiment_Table_Name+ ";";
     public static final String Hopital_TABLE_DROP = "DROP TABLE IF EXISTS " + Hopital_Table_Name+ ";";
@@ -257,7 +248,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Lit_TABLE_DROP);
         db.execSQL(Douleur_TABLE_DROP);
         db.execSQL(Intervention_TABLE_DROP);
-        db.execSQL(Subit_TABLE_DROP);
+
         db.execSQL(Centre_TABLE_DROP);
 
 

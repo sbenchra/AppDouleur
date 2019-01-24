@@ -3,13 +3,16 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LitDAO extends DAOBase {
   public LitDAO(Context pContext) {
     super(pContext);
   }
 
 
-
+/**
   public Lit SelectionnerCentre(int idService)
 
   {
@@ -25,5 +28,20 @@ public class LitDAO extends DAOBase {
 
     return l;
 
+  }**/
+
+public List<Integer> getAllCentre() {
+  List<Integer> l = new ArrayList<>();
+  Cursor cursor = getReadableDatabase().rawQuery("select * from Lit", null);
+  if (cursor != null) {
+    while (cursor.moveToNext()) {
+      Integer NumeroLit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
+      l.add(NumeroLit);
+    }
+
+
   }
+  return l;
+}
+
 }

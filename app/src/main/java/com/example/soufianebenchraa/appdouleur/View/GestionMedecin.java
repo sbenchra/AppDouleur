@@ -36,15 +36,17 @@ public class GestionMedecin extends AppCompatActivity{
     /**
      * il faut recuperer les données depuis le layout (nom,prenom,numero...) et appeller le addMedecin avec ces données
      */
+
+    //TO DO lier cette activite a l'activité à l'activité ajouter medecin
     public void addMedecin(View addButton) {
 
         Intent i = new Intent (GestionMedecin.this, AjouterMedecin.class);
         startActivity(i);
 
-/**
+
         Medecin medecin = medecinDAO.addMedecin();
         Log.i("addi medecin",medecin.getNomMedecin());
-        addMedecinToDisplayedList(medecin);**/
+        addMedecinToDisplayedList(medecin);
     }
 
     /**
