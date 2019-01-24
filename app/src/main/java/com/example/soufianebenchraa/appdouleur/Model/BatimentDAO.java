@@ -12,13 +12,15 @@ public class BatimentDAO extends DAOBase {
         super(pContext);
     }
 
-    public List<String> getAllBatiment() {
-        List<String> l = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery("select NomBatiment from Batiment", null);
+    public List<Batiment> getAllBatiment(Hopital h) {
+        List<Batiment> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Batiment where IdHopital= ?", new String[] {h.getIdHopital()+""});
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                int idbatiment = cursor.getInt(cursor.getColumnIndex("IdBatiment"));
                 String nomBatiement = cursor.getString(cursor.getColumnIndex("NomBatiment"));
-                l.add(nomBatiement);
+                Batiment b = new Batiment (idbatiment,nomBatiement,h);
+                l.add(b);
             }
 
 

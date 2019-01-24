@@ -30,13 +30,15 @@ public class LitDAO extends DAOBase {
 
   }**/
 
-public List<Integer> getAllCentre() {
-  List<Integer> l = new ArrayList<>();
-  Cursor cursor = getReadableDatabase().rawQuery("select * from Lit", null);
+public List<Lit> getAllLit(Service s) {
+  List<Lit> l = new ArrayList<>();
+  Cursor cursor = getReadableDatabase().rawQuery("select * from Lit where IdService = ?", new String[]{s.getIdService() + ""});
   if (cursor != null) {
     while (cursor.moveToNext()) {
-      Integer NumeroLit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
-      l.add(NumeroLit);
+        int idlit = cursor.getInt(cursor.getColumnIndex("IdLit"));
+        int numerolit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
+        Lit lit = new Lit(idlit,numerolit,s);
+        l.add(lit);
     }
 
 

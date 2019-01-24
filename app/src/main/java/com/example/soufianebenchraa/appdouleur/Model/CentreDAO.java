@@ -38,14 +38,16 @@ public class CentreDAO extends DAOBase {
 **/
 
 
-    public List<String> getAllCentre() {
-        List<String> l = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery("select * from Centre", null);
+    public List<Centre> getAllCentre(Ville v) {
+        List<Centre> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Centre where IdVille = ?", new String[]{v.getIdVille()+ ""});
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                int idcentre = cursor.getInt(cursor.getColumnIndex("IdCentre"));
                 String nomCentre = cursor.getString(cursor.getColumnIndex("NomCentre"));
-                l.add(nomCentre);
-            }
+                Centre c = new Centre(idcentre,nomCentre,v);
+                l.add(c);
+             }
 
 
         }

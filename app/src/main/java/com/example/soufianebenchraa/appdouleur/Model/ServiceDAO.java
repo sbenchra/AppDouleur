@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServiceDAO extends DAOBase {
   public static final String Service_Key="IdService";
   public static final String Service_Etage="Etage";
@@ -14,6 +17,28 @@ public class ServiceDAO extends DAOBase {
 
   public ServiceDAO(Context pContext) {
     super(pContext);
+  }
+
+
+
+  public List<Service> getAllService(Batiment b) {
+    List<Service> l = new ArrayList<>();
+    Cursor cursor = getReadableDatabase().rawQuery("select * from Batiment where IdBatiment= ?", new String[] {b.getIdBatiment()+""});
+    if (cursor != null) {
+      while (cursor.moveToNext()) {
+          int idservice = cursor.getInt(cursor.getColumnIndex("IdSerice"));
+          String libelleservice = cursor.getString(cursor.getColumnIndex("LibelleService"));
+          int etage = cursor.getInt(cursor.getColumnIndex("Etage"));
+          String ail = cursor.getString(cursor.getColumnIndex("Ail"));
+
+          Service s = new Service(idservice,etage,ail,libelleservice,b);
+
+          l.add(s);
+
+          }
+
+    }
+    return l;
   }
 
   public void ajouterService(Service s)

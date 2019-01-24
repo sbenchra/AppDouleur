@@ -14,13 +14,14 @@ public class HopitalDAO extends DAOBase {
     }
 
 
-    public List<String> getAllHopital() {
-        List<String> l = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery("select * from Hopital", null);
+    public List<Hopital> getAllHopital(Centre c) {
+        List<Hopital> l = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Hopital where IdCentre = ?", new String[]{c.getIdCentre()+ ""});
         if (cursor != null) {
             while (cursor.moveToNext()) {
+                int idhopital = cursor.getInt(cursor.getColumnIndex("IdHopital"));
                 String nomHopital = cursor.getString(cursor.getColumnIndex("NomHopital"));
-                l.add(nomHopital);
+                 Hopital h = new Hopital (idhopital,nomHopital,c);
             }
 
 

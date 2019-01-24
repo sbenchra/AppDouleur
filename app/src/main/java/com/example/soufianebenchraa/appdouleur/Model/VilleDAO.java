@@ -31,13 +31,16 @@ public class VilleDAO extends DAOBase{
 
     }**/
 
-   public List<String> getAllVille() {
-       List<String> l = new ArrayList<>();
+   public List<Ville> getAllVille() {
+       List<Ville> l = new ArrayList<>();
        Cursor cursor = getReadableDatabase().rawQuery("select * from Ville", null);
        if (cursor != null) {
            while (cursor.moveToNext()) {
-               String nomVille = cursor.getString(cursor.getColumnIndex("NomVille"));
-               l.add(nomVille);
+               int idville = cursor.getInt(cursor.getColumnIndex("IdVille"));
+               String nomville = cursor.getString(cursor.getColumnIndex("NomVille"));
+               Ville v = new Ville(idville,nomville);
+               l.add(v);
+
            }
 
 
