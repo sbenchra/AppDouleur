@@ -1,11 +1,13 @@
 package com.example.soufianebenchraa.appdouleur.View;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import java.util.List;
 public class GestionMedecin extends AppCompatActivity{
 
     private MedecinDAO medecinDAO;
+    Button Ajouter;
     private TableLayout displayedMedecins;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +38,13 @@ public class GestionMedecin extends AppCompatActivity{
      */
     public void addMedecin(View addButton) {
 
+        Intent i = new Intent (GestionMedecin.this, AjouterMedecin.class);
+        startActivity(i);
+
+/**
         Medecin medecin = medecinDAO.addMedecin();
         Log.i("addi medecin",medecin.getNomMedecin());
-        addMedecinToDisplayedList(medecin);
+        addMedecinToDisplayedList(medecin);**/
     }
 
     /**

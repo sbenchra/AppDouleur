@@ -47,7 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Service_Ail="Ail";
     public static final String Service_Name="LibelleService";
     public static final String Service_Table_Name="Service";
-    public static final String Service_Centre="IdCentre";
+    public static final String Service_Batiment="IdBatiment";
 
     public static final String Service_Table_Create =
             " CREATE TABLE " + Service_Table_Name + "(" +
@@ -55,8 +55,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Service_Etage + " INTEGER,"+
                     Service_Ail + " TEXT ,"+
                     Service_Name + " TEXT," +
-                    Service_Centre + " INTEGER," +
-                    "FOREIGN KEY(IdCentre) REFERENCES Centre(IdCentre))";
+                    Service_Batiment + " INTEGER," +
+                    "FOREIGN KEY(IdBatiment) REFERENCES Batiment(IdBatiment))";
 
 
 
@@ -103,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Patient_Sexe = "SexePatient";
     public static final String Patient_Pseudo = "PseudoPatient";
+    public static final String Patient_Etat = "EtatPatient";
     public static final String Patient_MotDePasse = "PatientMotDePasse";
 
 
@@ -121,6 +122,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Patient_Medecin +" INTEGER,"+
                     Patient_Pseudo +" TEXT,"+
                     Patient_MotDePasse +" TEXT,"+
+                    Patient_Etat +" INTEGER,"+
 
 
                     " FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
