@@ -14,7 +14,7 @@ public class BatimentDAO extends DAOBase {
 
     public List<Batiment> getAllBatiment(Hopital h) {
         List<Batiment> l = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery("select * from Batiment where IdHopital= ?", new String[] {h.getIdHopital()+""});
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Batiment where IdHopital= ?", new String[] {String.valueOf(h.getIdHopital())});
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 int idbatiment = cursor.getInt(cursor.getColumnIndex("IdBatiment"));

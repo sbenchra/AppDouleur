@@ -3,6 +3,7 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +24,26 @@ public class ServiceDAO extends DAOBase {
 
   public List<Service> getAllService(Batiment b) {
     List<Service> l = new ArrayList<>();
-    Cursor cursor = getReadableDatabase().rawQuery("select * from Batiment where IdBatiment= ?", new String[] {b.getIdBatiment()+""});
+    Cursor cursor = getReadableDatabase().rawQuery("select * from "+Service_Table_Name+" where IdBatiment = ?", new String[]{String.valueOf(b.getIdBatiment())});
     if (cursor != null) {
-      while (cursor.moveToNext()) {
-          int idservice = cursor.getInt(cursor.getColumnIndex("IdSerice"));
-          String libelleservice = cursor.getString(cursor.getColumnIndex("LibelleService"));
-          int etage = cursor.getInt(cursor.getColumnIndex("Etage"));
-          String ail = cursor.getString(cursor.getColumnIndex("Ail"));
 
+      while (cursor.moveToNext() ) {
+
+          int idservice = cursor.getInt(cursor.getColumnIndex(Service_Key));
+          String libelleservice = cursor.getString(cursor.getColumnIndex(Service_Name));
+          int etage = cursor.getInt(cursor.getColumnIndex(Service_Etage));
+          String ail = cursor.getString(cursor.getColumnIndex(Service_Ail));
           Service s = new Service(idservice,etage,ail,libelleservice,b);
-
+          Log.d("Curseur",s.getLibelleService());
           l.add(s);
 
           }
-
     }
+
+        else {
+        Log.d("Curseur","Le curseur est vide");
+      }
+
     return l;
   }
 

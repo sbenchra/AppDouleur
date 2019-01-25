@@ -253,7 +253,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues value2 = new ContentValues();
         value2.put("IdCentre", 2);
-        value2.put("NomCentre", "Colombiere");
+        value2.put("CentreNom", "Colombiere");
         value2.put("IdVille", 1);
 
         db.insert("Centre", null, value2);
@@ -275,7 +275,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues value4 = new ContentValues();
         value4.put("IdBatiment", 2);
         value4.put("NomBatiment", "A");
-        value4.put("IdHopital", 2);
+        value4.put("IdHopital", 1);
 
         db.insert("Batiment", null, value4);
 
@@ -284,9 +284,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         value6.put("Etage", 1);
         value6.put("Ail", "Gauche");
         value6.put("LibelleService", "Rachis");
-        value6.put("IdBatiment", 1);
+        value6.put("IdBatiment", 2);
 
         db.insert("Service", null, value6);
+
+        ContentValues value9 = new ContentValues();
+        value9.put("IdService", 2);
+        value9.put("Etage", 1);
+        value9.put("Ail", "Gauche");
+        value9.put("LibelleService", "ORL");
+        value9.put("IdBatiment", 2);
+
+        db.insert("Service", null, value9);
 
         ContentValues value7 = new ContentValues();
         value7.put("IdLit", 1);
