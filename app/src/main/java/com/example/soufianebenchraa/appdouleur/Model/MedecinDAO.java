@@ -16,24 +16,11 @@ public class MedecinDAO extends DAOBase {
     public static final String Medecin_Pseudo = "MedecinPatient";
     public static final String Medecin_MotDePasse = "MedecinMotDePasse";
     public static final String Medecin_Table_NAME = "Medecin";
+    //tag utilisé lors de la navigation d'une activity à l'autre
+    public static final String navigateMedecinTag = "medecinAjoute";
 
     public MedecinDAO(Context pContext) {
         super(pContext);
-    }
-
-    /**
-     * il faut appeller cette methodes avec les données recuperer depuis l'interface (layout)
-     */
-    public Medecin addMedecin() {
-        Medecin m = new Medecin(1,"Belhadj","Anas","0621524555","pseudo","mot de passe");
-        long rowId = ajouterMedecin(m);
-        if(rowId!=-1) {
-            return m;
-        } else {
-            //il faut afficher une erreur au utilisateur
-            Log.e("Ajout medecin","Une erreur est survenue lors de l'ajout du médecin");
-            return null;
-        }
     }
 
     public List<Medecin > getAll() {
@@ -56,6 +43,9 @@ public class MedecinDAO extends DAOBase {
 
     public long ajouterMedecin(Medecin m)
     {
+        if(m==null) {
+            return -1;
+        }
         super.open();
         ContentValues value = new ContentValues();
         value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());

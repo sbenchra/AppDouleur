@@ -1,5 +1,6 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
+
 public class Medecin {
 
 	private int IdMedecin;

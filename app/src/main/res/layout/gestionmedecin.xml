@@ -45,7 +45,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.13"
-        android:onClick="addMedecin"/>
+        android:onClick="goToAjouterMedecin"
+        />
 
     <TextView
         android:id="@+id/textView14"
@@ -128,7 +129,7 @@
         <!-- Add a blue line. -->
         <View
             android:background="@color/colorPrimary"
-            android:layout_height="5dp"/>
+            android:layout_height="3dp"/>
 
 
     </TableLayout>
@@ -140,14 +141,14 @@
 
             <ScrollView
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
+                android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:scrollbars="none">
 
                 <TableLayout
                     android:id="@+id/displayedMedecins"
                     android:layout_width="fill_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="fill_parent"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="128dp"

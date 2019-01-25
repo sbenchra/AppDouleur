@@ -22,7 +22,6 @@ import java.util.List;
 public class GestionMedecin extends AppCompatActivity{
 
     private MedecinDAO medecinDAO;
-    Button Ajouter;
     private TableLayout displayedMedecins;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +37,9 @@ public class GestionMedecin extends AppCompatActivity{
      */
 
     //TO DO lier cette activite a l'activité à l'activité ajouter medecin
-    public void addMedecin(View addButton) {
-
+    public void goToAjouterMedecin(View addButton) {
         Intent i = new Intent (GestionMedecin.this, AjouterMedecin.class);
         startActivity(i);
-
-
-        Medecin medecin = medecinDAO.addMedecin();
-        Log.i("addi medecin",medecin.getNomMedecin());
-        addMedecinToDisplayedList(medecin);
     }
 
     /**
@@ -99,6 +92,7 @@ public class GestionMedecin extends AppCompatActivity{
         numberTV.setTextColor(Color.parseColor("#3a94e9"));
         numberTV.setText(medecin.getNumeroMedecin());
         tableRow.addView(numberTV, 2);
+
         return tableRow;
     }
 }

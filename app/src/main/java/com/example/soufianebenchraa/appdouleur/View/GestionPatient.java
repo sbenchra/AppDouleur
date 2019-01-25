@@ -8,8 +8,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.soufianebenchraa.appdouleur.Model.Medecin;
-import com.example.soufianebenchraa.appdouleur.Model.MedecinDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Patient;
 import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
 import com.example.soufianebenchraa.appdouleur.R;
@@ -24,24 +22,27 @@ public class GestionPatient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         patientDAO = new PatientDAO(getApplicationContext());
-
         setContentView(R.layout.gestionpatient);
-        displayedPatients =  findViewById(R.id.DisplayedPatient);
+        displayedPatients =  findViewById(R.id.displayedPatients);
+        populateDisplayedPatients();
 
     }
 
-    private void populateDisplayedMedecins() {
+    /**
+     * recuperer tous les patients
+     */
+    private void populateDisplayedPatients() {
         List<Patient> patients = patientDAO.getAll();
         if(patients!=null && patients.size()>0) {
             for (Patient patient:patients) {
-                addMedecinToDisplayedList(patient);
+                addPatientToDisplayedList(patient);
             }
         }
     }
 
     private void addPatientToDisplayedList(Patient patient) {
         if(patient==null) return;
-        displayedPatient.addView(createTableRow(patient));
+        displayedPatients.addView(createTableRow(patient));
         Log.i("table number of rows",String.valueOf(displayedPatients.getChildCount()));
     }
     private TableRow createTableRow(Patient patient) {

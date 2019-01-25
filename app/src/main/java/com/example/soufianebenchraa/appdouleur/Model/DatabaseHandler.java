@@ -101,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Patient_Medecin="IdMedecin";
     public static final String Patient_Birthdate = "DateNaissancePatient";
 
-    public static final String Intervention_Key ="IdTypeIntervention";
+    public static final String Intervention_Key ="IdIntervention";
     public static final String Patient_Sexe = "SexePatient";
     public static final String Patient_Pseudo = "PseudoPatient";
     public static final String Patient_Etat = "EtatPatient";
@@ -124,10 +124,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Patient_Etat +" INTEGER,"+
                     Patient_Lit + " INTEGER, " +
                     Patient_Medecin +" INTEGER,"+
-                    Intervention_Key +"INTEGER,"+
+                    Intervention_Key +" INTEGER,"+
 
 
-                    " FOREIGN KEY(idIntervention) REFERENCES Intervention(IdIntervention) ,FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
+                    " FOREIGN KEY(IdIntervention) REFERENCES Intervention(IdIntervention) ,FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
 
 
 
