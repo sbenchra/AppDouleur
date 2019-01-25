@@ -1,4 +1,5 @@
 package com.example.soufianebenchraa.appdouleur.Model;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -62,14 +63,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Lit_Key="IdLit";
     public static final String Lit_Service="IdService";
-    public static final String Lit_NumeroLit="IdNumeroLit";
+    public static final String Lit_NumeroLit="NumeroLit";
     public static final String Lit_Table_Name="Lit";
 
     public static final String Lit_Table_Create =
             "CREATE TABLE " + Lit_Table_Name + "(" +
                     Lit_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Lit_NumeroLit + " INTEGER,"+
-                    Lit_Service + " INTEGER)";
+                    Lit_Service + " INTEGER , FOREIGN KEY (IdService) REFERENCES Service (IdService));";
 
 
     public static final String Medecin_Key = "IdMedecin";
@@ -203,6 +204,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, name, factory, version);
 
     }
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(Batiment_TABLE_DROP);
+        db.execSQL(Hopital_TABLE_DROP);
+        db.execSQL(Ville_TABLE_DROP);
+        db.execSQL(Service_TABLE_DROP);
+        db.execSQL(Patient_TABLE_DROP);
+        db.execSQL(Lit_TABLE_DROP);
+        db.execSQL(Douleur_TABLE_DROP);
+        db.execSQL(Intervention_TABLE_DROP);
+        db.execSQL(Medecin_TABLE_DROP);
+
+        db.execSQL(Centre_TABLE_DROP);
+
+
+        onCreate(db);
+
+
+    }
 
 
     @Override
@@ -219,8 +239,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Medecin_Table_Create);
         db.execSQL(Douleur_Table_Create);
         db.execSQL(Intervention_Table_Create);
+        ContentValues value = new ContentValues();
+        value.put("IdVille", 1);
+        value.put("NomVille", "Montpellier");
 
+        db.insert("Ville", null, value);
+        ContentValues value1 = new ContentValues();
+        value1.put("IdCentre", 1);
+        value1.put("CentreNom", "Guichauliac");
+        value1.put("IdVille", 1);
 
+        db.insert("Centre", null, value1);
+
+        ContentValues value2 = new ContentValues();
+        value2.put("IdCentre", 2);
+        value2.put("NomCentre", "Colombiere");
+        value2.put("IdVille", 1);
+
+        db.insert("Centre", null, value2);
+
+        ContentValues value3 = new ContentValues();
+        value3.put("IdHopital", 2);
+        value3.put("NomHopital", "Colombiere2");
+        value3.put("IdCentre", 1);
+
+        db.insert("Hopital", null, value3);
+
+        ContentValues value5 = new ContentValues();
+        value5.put("IdHopital", 1);
+        value5.put("NomHopital", "Col");
+        value5.put("IdCentre", 2);
+
+        db.insert("Hopital", null, value5);
+
+        ContentValues value4 = new ContentValues();
+        value4.put("IdBatiment", 2);
+        value4.put("NomBatiment", "A");
+        value4.put("IdHopital", 2);
+
+        db.insert("Batiment", null, value4);
+
+        ContentValues value6 = new ContentValues();
+        value6.put("IdService", 1);
+        value6.put("Etage", 1);
+        value6.put("Ail", "Gauche");
+        value6.put("LibelleService", "Rachis");
+        value6.put("IdBatiment", 1);
+
+        db.insert("Service", null, value6);
+
+        ContentValues value7 = new ContentValues();
+        value7.put("IdLit", 1);
+        value7.put("NumeroLit", 1);
+        value7.put("IdService", 1);
+
+        db.insert("Lit", null, value7);
 
 
 
@@ -231,6 +304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Patient_TABLE_DROP = "DROP TABLE IF EXISTS " + Patient_TABLE_NAME + ";";
     public static final String Douleur_TABLE_DROP = "DROP TABLE IF EXISTS " + Douleur_Table_Name + ";";
     public static final String Intervention_TABLE_DROP = "DROP TABLE IF EXISTS " + Intervention_Table_Name + ";";
+    public static final String Medecin_TABLE_DROP = "DROP TABLE IF EXISTS " + Medecin_Table_NAME + ";";
 
     public static final String Centre_TABLE_DROP = "DROP TABLE IF EXISTS " + Centre_Table_Name+ ";";
     public static final String Batiment_TABLE_DROP = "DROP TABLE IF EXISTS " + Batiment_Table_Name+ ";";
@@ -238,24 +312,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Ville_TABLE_DROP = "DROP TABLE IF EXISTS " + Ville_Table_Name+ ";";
 
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(Batiment_TABLE_DROP);
-        db.execSQL(Hopital_TABLE_DROP);
-        db.execSQL(Ville_TABLE_DROP);
-        db.execSQL(Service_TABLE_DROP);
-        db.execSQL(Patient_TABLE_DROP);
-        db.execSQL(Lit_TABLE_DROP);
-        db.execSQL(Douleur_TABLE_DROP);
-        db.execSQL(Intervention_TABLE_DROP);
-
-        db.execSQL(Centre_TABLE_DROP);
 
 
-        onCreate(db);
-
-
-    }
 
 }
 

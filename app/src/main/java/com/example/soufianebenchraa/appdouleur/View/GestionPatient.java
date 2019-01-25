@@ -1,9 +1,11 @@
 package com.example.soufianebenchraa.appdouleur.View;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,6 +28,11 @@ public class GestionPatient extends AppCompatActivity {
         displayedPatients =  findViewById(R.id.displayedPatients);
         populateDisplayedPatients();
 
+    }
+
+    public void goToAjouterPatient(View addButton) {
+        Intent i = new Intent (GestionPatient.this, AjouterPatient.class);
+        startActivity(i);
     }
 
     /**

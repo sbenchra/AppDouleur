@@ -10,17 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.GestionMedecin" android:noHistory="true">
+        <activity android:name=".View.Register" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.GestionPatient" android:noHistory="true">
 
-        </activity>
         <activity android:name="com.example.soufianebenchraa.appdouleur.View.AjouterMedecin" android:noHistory="true"></activity>
-        <activity android:name="com.example.soufianebenchraa.appdouleur.View.AjouterPatient" android:noHistory="true"></activity>
+
 
 
     </application>

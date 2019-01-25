@@ -34,11 +34,6 @@ public class PatientDAO extends DAOBase {
 
 
 
-
-
-
-
-
     public List<Patient > getAll() {
 
         List<Patient> patients = new ArrayList<>();
