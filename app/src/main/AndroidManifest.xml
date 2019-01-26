@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".View.AjouterMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".View.ModifierMedecin" android:noHistory="false"> </activity>
         <activity android:name=".View.GestionMedecin" android:noHistory="true">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

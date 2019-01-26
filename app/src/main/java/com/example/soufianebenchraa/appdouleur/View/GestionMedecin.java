@@ -2,10 +2,13 @@ package com.example.soufianebenchraa.appdouleur.View;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionMedecin extends AppCompatActivity{
+    private Intent j ;
 
     private MedecinDAO medecinDAO;
     private TableLayout displayedMedecins;
@@ -30,7 +34,9 @@ public class GestionMedecin extends AppCompatActivity{
         medecinDAO = new MedecinDAO(getApplicationContext());
         displayedMedecins =  findViewById(R.id.displayedMedecins);
         populateDisplayedMedecins();
+        j = new Intent (GestionMedecin.this, ModifierMedecin.class);
     }
+
 
     /**
      * il faut recuperer les données depuis le layout (nom,prenom,numero...) et appeller le addMedecin avec ces données
@@ -93,20 +99,38 @@ public class GestionMedecin extends AppCompatActivity{
         numberTV.setText(medecin.getNumeroMedecin());
         tableRow.addView(numberTV, 2);
         tableRow.setClickable(true);
+        registerForContextMenu(tableRow);
+
+
         tableRow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent i = new Intent (GestionMedecin.this, ModifierMedecin.class);
-                i.putExtra("idmedecin", medecin.getIdMedecin());
-                i.putExtra("nommedecin", medecin.getNomMedecin());
-                i.putExtra("prenommedecin",medecin.getPrenomMedecin());
-                i.putExtra("numeromedecin",medecin.getNumeroMedecin());
-                i.putExtra("pseudo",medecin.getPseudoMedecin());
-                i.putExtra("mpd",medecin.getMotDePasseMedecin());
-                startActivity(i);
+
+                j.putExtra("idmedecin", medecin.getIdMedecin());
+                j.putExtra("nommedecin", medecin.getNomMedecin());
+                j.putExtra("prenommedecin",medecin.getPrenomMedecin());
+                j.putExtra("numeromedecin",medecin.getNumeroMedecin());
+                j.putExtra("pseudo",medecin.getPseudoMedecin());
+                j.putExtra("mpd",medecin.getMotDePasseMedecin());
 
             }
         });
 
         return tableRow;
+    }
+    @Override
+    public void OnCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu,view,menuInfo);
+        getMenuInflater().inflate(R.menu.menumedecin,menu);
+    }
+
+
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.modifier:
+                startActivity(j);
+                break;
+        }
+        return super.onContextItemSelected(item);
     }
 }
