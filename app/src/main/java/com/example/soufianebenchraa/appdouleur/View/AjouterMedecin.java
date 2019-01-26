@@ -22,6 +22,8 @@ public class AjouterMedecin extends AppCompatActivity {
     EditText tonEdit2;
     EditText tonEdit3;
     EditText tonEdit4;
+    Button addEditButton;
+    Button updateEditButton;
     String NomMedecin;
     String PrenomMedecin;
     String NumeroMedecin;
@@ -29,12 +31,27 @@ public class AjouterMedecin extends AppCompatActivity {
     String PasswordMedecin;
     boolean doubleBackToExitPressedOnce = false;
     private MedecinDAO medecinDAO;
-
+    private Medecin medecin;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajoutmedecin);
         medecinDAO = new MedecinDAO(getApplicationContext());
+        tonEdit = (EditText)findViewById(R.id.editText10);
+        tonEdit1 = (EditText)findViewById(R.id.editText6);
+        tonEdit2 = (EditText)findViewById(R.id.editText9);
+        tonEdit3 = (EditText)findViewById(R.id.editText12);
+        tonEdit4 = (EditText)findViewById(R.id.editText13);
+        addEditButton =  findViewById(R.id.ajouter);
+        updateEditButton =  findViewById(R.id.modifier);
+        try {
+            medecin = (Medecin) getIntent().getSerializableExtra("medecin");
+            populayeViews(medecin);
+        } catch(ClassCastException e) {
+            Log.e("modifier medecin","cast medecin",e);
+        }
     }
+
+
 
     /**
      * ajouter un médecin
@@ -44,28 +61,64 @@ public class AjouterMedecin extends AppCompatActivity {
         double a = random();
         int b = (int) a;
         Medecin m = new Medecin(b,NomMedecin,PrenomMedecin,NumeroMedecin,PseudoMedecin,PasswordMedecin);
-        Log.d("Saisir",PasswordMedecin);
         long rowId = medecinDAO.ajouterMedecin(m);
-        if(rowId!=-1) {
+        if(rowId>0) {
             Intent i = new Intent (AjouterMedecin.this, GestionMedecin.class);
             startActivity(i);
         } else {
             // TODO afficher une erreur à l'utilisateur
             Log.e("ajouter medecin","Erreur lors de l'ajout d'un médecin");
         }
-
     }
+
+    /**
+     * modifier medecin
+     */
+    public void updateMedecin(View updateButton) {
+        if(medecin==null) {
+            Log.e("modifier medecin","aucun medecin trouvé");
+            return;
+        }
+        populateValues();
+        medecin.setNomMedecin(NomMedecin);
+        medecin.setPrenomMedecin(PrenomMedecin);
+        medecin.setNumeroMedecin(NumeroMedecin);
+        medecin.setPseudoMedecin(PseudoMedecin);
+        medecin.setMotDePasseMedecin(PasswordMedecin);
+        long rowId = medecinDAO.modifierMedecin(medecin);
+        if(rowId>0) {
+            Intent i = new Intent (AjouterMedecin.this, GestionMedecin.class);
+            startActivity(i);
+        } else {
+            // TODO afficher une erreur à l'utilisateur
+            Log.e("ajouter medecin","Erreur lors de l'ajout d'un médecin");
+        }
+    }
+    /**
+     * recuperer les infos depuis l'interface
+     */
     private void populateValues() {
-        tonEdit = (EditText)findViewById(R.id.editText10);
         NomMedecin = tonEdit.getText().toString();
-        tonEdit1 = (EditText)findViewById(R.id.editText6);
         PrenomMedecin = tonEdit1.getText().toString();
-        tonEdit2 = (EditText)findViewById(R.id.editText9);
         NumeroMedecin = tonEdit2.getText().toString();
-        tonEdit3 = (EditText)findViewById(R.id.editText12);
         PseudoMedecin = tonEdit3.getText().toString();
-        tonEdit4 = (EditText)findViewById(R.id.editText13);
         PasswordMedecin = tonEdit4.getText().toString();
+    }
+
+    /**
+     * afficher les infos à l'interface
+     */
+    private void populayeViews(Medecin medecin) {
+        if(medecin==null) {
+            return;
+        }
+        tonEdit.setText(medecin.getNomMedecin());
+        tonEdit1.setText(medecin.getPrenomMedecin());
+        tonEdit2.setText(medecin.getNumeroMedecin());
+        tonEdit3.setText(medecin.getPseudoMedecin());
+        tonEdit4.setText(medecin.getMotDePasseMedecin());
+        addEditButton.setVisibility(View.GONE);
+        updateEditButton.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -81,7 +134,7 @@ public class AjouterMedecin extends AppCompatActivity {
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Veuillez ciquer deux fois pour sortir", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Veuillez cliquer deux fois pour quitter", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 
@@ -90,5 +143,9 @@ public class AjouterMedecin extends AppCompatActivity {
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
+    }
+    public void goBack(View backBtn) {
+        Intent i = new Intent (AjouterMedecin.this, GestionMedecin.class);
+        startActivity(i);
     }
 }

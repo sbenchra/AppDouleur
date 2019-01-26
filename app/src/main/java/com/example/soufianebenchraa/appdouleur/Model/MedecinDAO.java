@@ -13,7 +13,7 @@ public class MedecinDAO extends DAOBase {
     public static final String Medecin_FName ="PrenomMedecin";
     public static final String Medecin_LName ="NomMedecin";
     public static final String Medecin_Number ="NumeroMedecin";
-    public static final String Medecin_Pseudo = "MedecinPatient";
+    public static final String Medecin_Pseudo = "PseudoMedecin";
     public static final String Medecin_MotDePasse = "MedecinMotDePasse";
     public static final String Medecin_Table_NAME = "Medecin";
     //tag utilisé lors de la navigation d'une activity à l'autre
@@ -30,11 +30,14 @@ public class MedecinDAO extends DAOBase {
         Cursor cursor = getReadableDatabase().rawQuery("select * from "+Medecin_Table_NAME,null);
         if(cursor!=null) {
             while(cursor.moveToNext()) {
+                Integer id = cursor.getInt(cursor.getColumnIndex(Medecin_Key));
                 String lName = cursor.getString(cursor.getColumnIndex(Medecin_LName));
                 String fName = cursor.getString(cursor.getColumnIndex(Medecin_FName));
                 String number = cursor.getString(cursor.getColumnIndex(Medecin_Number));
+                String pseudo = cursor.getString(cursor.getColumnIndex(Medecin_Pseudo));
+                String password = cursor.getString(cursor.getColumnIndex(Medecin_MotDePasse));
 
-                medecins.add(new Medecin(lName,fName,number));
+                medecins.add(new Medecin(id,lName,fName,number,pseudo,password));
             }
             cursor.close();
         }
@@ -57,20 +60,26 @@ public class MedecinDAO extends DAOBase {
         return mDb.insert(Medecin_Table_NAME, null, value);
     }
 
-    public void supprimerMedecin(long id)
+    public int supprimerMedecin(long id)
     {
-        mDb.delete(Medecin_Table_NAME, Medecin_Key + " = ?", new String[] {String.valueOf(id)});
+        if(id<=0)  return -1;
+        super.open();
+        return mDb.delete(Medecin_Table_NAME, Medecin_Key + " = ?", new String[] {String.valueOf(id)});
     }
 
-    public void modifierMedecin(Medecin m)
+    public long modifierMedecin(Medecin m)
     {
+        if(m==null) {
+            return -1;
+        }
+        super.open();
         ContentValues value = new ContentValues();
         value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());
         value.put(MedecinDAO.Medecin_LName, m.getNomMedecin());
         value.put(MedecinDAO.Medecin_Number, m.getNumeroMedecin());
         value.put(MedecinDAO.Medecin_Pseudo, m.getPseudoMedecin());
         value.put(MedecinDAO.Medecin_MotDePasse, m.getMotDePasseMedecin());
-        mDb.update(Medecin_Table_NAME, value, Medecin_Key  + " = ?", new String[] {String.valueOf(m.getIdMedecin())});
+        return mDb.update(Medecin_Table_NAME, value, Medecin_Key  + " = ?", new String[] {String.valueOf(m.getIdMedecin())});
 
     }
 

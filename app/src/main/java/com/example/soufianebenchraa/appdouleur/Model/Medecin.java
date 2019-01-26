@@ -1,7 +1,9 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
 
-public class Medecin {
+import java.io.Serializable;
+
+public class Medecin implements Serializable {
 
 	private int IdMedecin;
 	private String NomMedecin;
@@ -10,19 +12,18 @@ public class Medecin {
 	private String PseudoMedecin;
 	private String MotDePasseMedecin;
 
-    public Medecin(int idMedecin, String nomMedecin, String prenomMedecin, String numeroMedecin, String pseudoMedecin, String motDePasseMedecin) {
+    public Medecin(int idMedecin, String nomMedecin, String prenomMedecin, String numeroMedecin, String pseudoMedecin) {
         IdMedecin = idMedecin;
         NomMedecin = nomMedecin;
         PrenomMedecin = prenomMedecin;
         NumeroMedecin = numeroMedecin;
         PseudoMedecin = pseudoMedecin;
+    }
+	public Medecin(int idMedecin, String nomMedecin, String prenomMedecin, String numeroMedecin, String pseudoMedecin, String motDePasseMedecin) {
+        this(idMedecin,nomMedecin,prenomMedecin,numeroMedecin,pseudoMedecin);
         MotDePasseMedecin = motDePasseMedecin;
     }
-    public Medecin(String nomMedecin, String prenomMedecin, String numeroMedecin) {
-        NomMedecin = nomMedecin;
-        PrenomMedecin = prenomMedecin;
-        NumeroMedecin = numeroMedecin;
-    }
+
 
     public int getIdMedecin() {
         return IdMedecin;

@@ -77,6 +77,7 @@ public class PatientDAO extends DAOBase {
                 String nommedecin = cursor.getString(cursor.getColumnIndex("NomMedecin"));
                 String prenommedecin = cursor.getString(cursor.getColumnIndex("PrenomMedecin"));
                 String numeromedecin = cursor.getString(cursor.getColumnIndex("NumeroMedecin"));
+                String pseudoMedecin = cursor.getString(cursor.getColumnIndex("PseudoMedecin"));
 
                 Ville v = new Ville(idville,nomville);
                 Centre c = new Centre(idcentre,nomcentre,v);
@@ -85,7 +86,7 @@ public class PatientDAO extends DAOBase {
                 Service s = new Service(idService,etage,ail,nomservice,b);
                 Lit l= new Lit(idlit,numerolit,s);
                 TypeIntervention i= new TypeIntervention(idIntervention,dateintervention,heureintervention,libelleintervention);
-                Medecin m = new Medecin(nommedecin,prenommedecin,numeromedecin);
+                Medecin m = new Medecin(idmedecin,nommedecin,prenommedecin,numeromedecin,pseudoMedecin);
                 Patient p = new Patient(lName,fName,DateNaissance,SexePatient,EtatPatient,l,m,i);
                 patients.add(p);
 

@@ -1,7 +1,11 @@
 package com.example.soufianebenchraa.appdouleur.View;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.view.ContextMenu;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,19 +17,23 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.soufianebenchraa.appdouleur.Model.Medecin;
 import com.example.soufianebenchraa.appdouleur.Model.MedecinDAO;
 import com.example.soufianebenchraa.appdouleur.R;
+import com.example.soufianebenchraa.appdouleur.utils.EditModal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestionMedecin extends AppCompatActivity{
-    private Intent j ;
 
     private MedecinDAO medecinDAO;
     private TableLayout displayedMedecins;
+    private Medecin selectedMedecin;
+    private TableRow selectedRow;
+    EditModal editNameDialogFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +41,8 @@ public class GestionMedecin extends AppCompatActivity{
         medecinDAO = new MedecinDAO(getApplicationContext());
         displayedMedecins =  findViewById(R.id.displayedMedecins);
         populateDisplayedMedecins();
-        j = new Intent (GestionMedecin.this, ModifierMedecin.class);
     }
+
 
     /**
      * il faut recuperer les données depuis le layout (nom,prenom,numero...) et appeller le addMedecin avec ces données
@@ -66,7 +74,6 @@ public class GestionMedecin extends AppCompatActivity{
     private void addMedecinToDisplayedList(Medecin medecin) {
         if(medecin==null) return;
         displayedMedecins.addView(createTableRow(medecin));
-        Log.i("table number of rows",String.valueOf(displayedMedecins.getChildCount()));
     }
 
 
@@ -76,7 +83,7 @@ public class GestionMedecin extends AppCompatActivity{
     private TableRow createTableRow(final Medecin medecin) {
         Context context = getApplicationContext();
         // Create a new table row.
-        TableRow tableRow = new TableRow(getApplicationContext());
+        final TableRow tableRow = new TableRow(getApplicationContext());
         // Set new table row layout parameters.
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         tableRow.setLayoutParams(layoutParams);
@@ -97,23 +104,61 @@ public class GestionMedecin extends AppCompatActivity{
         numberTV.setText(medecin.getNumeroMedecin());
         tableRow.addView(numberTV, 2);
         tableRow.setClickable(true);
+        registerForContextMenu(tableRow);
 
 
         tableRow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-                j.putExtra("idmedecin", medecin.getIdMedecin());
-                j.putExtra("nommedecin", medecin.getNomMedecin());
-                j.putExtra("prenommedecin",medecin.getPrenomMedecin());
-                j.putExtra("numeromedecin",medecin.getNumeroMedecin());
-                j.putExtra("pseudo",medecin.getPseudoMedecin());
-                j.putExtra("mpd",medecin.getMotDePasseMedecin());
-                startActivity(j);
+                selectedMedecin = medecin;
+                selectedRow = tableRow;
+                onCreateContextMenu(medecin);
 
             }
         });
 
         return tableRow;
     }
+    public void onDelete(View button) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Supprimer médecin")
+                .setMessage("Le médecin selectionné sera supprimé de la base !")
+                .setPositiveButton("Continuer", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteMedecin();
+                    }
 
+                })
+                .setNegativeButton("Annuler", null)
+                .show();
+    }
+
+    private void deleteMedecin() {
+        if(selectedMedecin==null) {
+            return;
+        }
+        int rowId = medecinDAO.supprimerMedecin(selectedMedecin.getIdMedecin());
+        if(rowId>0) {
+            displayedMedecins.removeView(selectedRow);
+            selectedRow = null;
+            selectedMedecin = null;
+            editNameDialogFragment.dismiss();
+        }
+    }
+
+    public void onUpdate(View button) {
+        Intent i = new Intent (GestionMedecin.this, AjouterMedecin.class);
+        i.putExtra("medecin",selectedMedecin);
+        startActivity(i);
+    }
+
+    public void onCreateContextMenu(Medecin medecin)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        editNameDialogFragment = EditModal.newInstance(medecin.getNomMedecin() + " "+ medecin.getPrenomMedecin());
+        editNameDialogFragment.show(fm, "fragment_edit_name");
+
+    }
 }

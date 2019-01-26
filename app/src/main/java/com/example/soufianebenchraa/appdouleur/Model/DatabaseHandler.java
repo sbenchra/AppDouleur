@@ -75,7 +75,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Medecin_FName ="PrenomMedecin";
     public static final String Medecin_LName ="NomMedecin";
     public static final String Medecin_Number ="NumeroMedecin";
-    public static final String Medecin_Pseudo = "MedecinPatient";
+    public static final String Medecin_Pseudo = "PseudoMedecin";
     public static final String Medecin_MotDePasse = "MedecinMotDePasse";
     public static final String Medecin_Table_NAME = "Medecin";
 
@@ -85,7 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Medecin_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Medecin_FName + " TEXT,"+
                     Medecin_LName + " TEXT,"+
-                    Medecin_Number + " INTEGER,"+
+                    Medecin_Number + " TEXT,"+
                     Medecin_Pseudo +" TEXT,"+
                     Medecin_MotDePasse +" TEXT)";
 
