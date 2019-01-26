@@ -19,11 +19,13 @@ public class PatientDAO extends DAOBase {
     public static final String Patient_Medecin="IdMedcin";
     public static final String Patient_Birthdate = "DateNaissancePatient";
     public static final String Patient_Sexe = "SexePatient";
+    public static final String Patient_IdIntervention = "IdIntervention";
 
 
 
     public static final String Patient_Pseudo = "PseudoPatient";
     public static final String Patient_MotDePasse = "PatientMotDePasse";
+    public static final String Patient_EtatPatient = "EtatPatient";
     public static final String Patient_TABLE_NAME = "Patient";
 
     public PatientDAO(Context pContext) {
@@ -94,19 +96,21 @@ public class PatientDAO extends DAOBase {
     }
 
 
-    public void ajouterPatient(Patient p)
+    public long ajouterPatient(Patient p)
     {
         super.open();
         ContentValues value = new ContentValues();
-        value.put(PatientDAO.Patient_FName, p.getNomPatient());
-        value.put(PatientDAO.Patient_LName, p.getPrenomPatient());
+        value.put(PatientDAO.Patient_LName, p.getNomPatient());
+        value.put(PatientDAO.Patient_FName, p.getPrenomPatient());
         value.put(PatientDAO.Patient_Birthdate, p.getDateNaissancePatient() );
+        value.put(PatientDAO.Patient_Pseudo, p.getPseudoPatient() );
         value.put(PatientDAO.Patient_Sexe, p.getSexePatient());
+        value.put(PatientDAO.Patient_EtatPatient, p.getEtatPatient());
         value.put(PatientDAO.Patient_Lit, p.getLit().getIdLit());
-        value.put(PatientDAO.Patient_Medecin, p.getEtatPatient());
         value.put(PatientDAO.Patient_Medecin, p.getMedecin().getIdMedecin());
+        value.put(PatientDAO.Patient_IdIntervention, p.getIntervention().getIdIntervention());
 
-        mDb.insert(Patient_TABLE_NAME, null, value);
+        return mDb.insert(Patient_TABLE_NAME, null, value);
 
     }
 

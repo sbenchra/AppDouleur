@@ -16,8 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.GestionMedecin" android:noHistory="true">
 
-        <activity android:name="com.example.soufianebenchraa.appdouleur.View.AjouterMedecin" android:noHistory="true"></activity>
+        </activity>
+        <activity android:name=".View.GestionPatient" android:noHistory="true">
+
+        </activity>
+
+        <activity android:name="com.example.soufianebenchraa.appdouleur.View.AjouterMedecin" android:noHistory="true">
+
+        </activity>
 
 
 

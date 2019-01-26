@@ -20,8 +20,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "CREATE TABLE "+ Ville_Table_Name + "(" +
                     Ville_Key +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Ville_Name +" TEXT)";
-                    //TODO y a une clé étrangere ici ?
-                    //Ville_Key +" INTEGER,FOREIGN KEY(IdVille) REFERENCES Ville(IdVille));";
 
 
 
@@ -196,7 +194,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Batiment_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT ,"+
                     Batiment_Name + " TEXT,"+
                     HopitalB_Key + " INTEGER" +
-                    ",FOREIGN KEY(IdBatiment) REFERENCES Hopital(IdBatiment));";
+                    ",FOREIGN KEY(IdHopital) REFERENCES Hopital(IdHopital));";
 
 
     public DatabaseHandler(Context context, String name, CursorFactory factory, int version) {

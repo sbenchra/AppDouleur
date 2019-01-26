@@ -6,8 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.soufianebenchraa.appdouleur.Model.Batiment;
 import com.example.soufianebenchraa.appdouleur.Model.BatimentDAO;
@@ -19,6 +21,8 @@ import com.example.soufianebenchraa.appdouleur.Model.Lit;
 import com.example.soufianebenchraa.appdouleur.Model.LitDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Medecin;
 import com.example.soufianebenchraa.appdouleur.Model.MedecinDAO;
+import com.example.soufianebenchraa.appdouleur.Model.Patient;
+import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Service;
 import com.example.soufianebenchraa.appdouleur.Model.ServiceDAO;
 import com.example.soufianebenchraa.appdouleur.Model.TypeIntervention;
@@ -26,6 +30,7 @@ import com.example.soufianebenchraa.appdouleur.Model.TypeInterventionDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Ville;
 import com.example.soufianebenchraa.appdouleur.Model.VilleDAO;
 import com.example.soufianebenchraa.appdouleur.R;
+import com.example.soufianebenchraa.appdouleur.utils.DateSelecter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,7 @@ public class Register extends AppCompatActivity {
     CentreDAO centreDAO;
     BatimentDAO batimentDAO;
     ServiceDAO serviceDAO;
+    PatientDAO patientDAO;
     LitDAO litDAO;
     VilleDAO villedao;
     MedecinDAO medecindao;
@@ -50,15 +56,100 @@ public class Register extends AppCompatActivity {
     Spinner spinner9;
     Spinner spinner10;
     Spinner spinner11;
+    List<Ville> villes = new ArrayList<>();
+    List<Medecin> medecins = new ArrayList<>();
+    List<Centre> centres = new ArrayList<>();
+    List<Hopital> hopitaux = new ArrayList<>();
+    List<Batiment> batiments = new ArrayList<>();
+    List<Service> services = new ArrayList<>();
+    List<Lit> lits = new ArrayList<>();
+    List<TypeIntervention> interventions = new ArrayList<>();
+    boolean isWoman = false;
+    boolean isMan = false;
+
+    DateSelecter dateSelectedFragment;
+    EditText nomET ;
+    EditText  prenomET;
+    EditText pseudoET;
+    EditText passwordET;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajout_patient);
 
+        patientDAO = new PatientDAO(getApplicationContext());
+
+        nomET = (EditText)findViewById(R.id.editText);
+        prenomET = (EditText)findViewById(R.id.editText2);
+        pseudoET = (EditText)findViewById(R.id.editText4);
+        passwordET = (EditText)findViewById(R.id.editText5);
+
+
         //Spinner Ville
         spinner2 = (Spinner) findViewById(R.id.spinner2);
-        final List<Ville> villes;
+        spinner3 = (Spinner) findViewById(R.id.spinner3);
+        //hopitaux
+        spinner4 = (Spinner) findViewById(R.id.spinner4);
+        //batiments
+        spinner5 = (Spinner) findViewById(R.id.spinner5);
+        spinner6 = (Spinner) findViewById(R.id.spinner6);//service
+        spinner7 = (Spinner) findViewById(R.id.spinner7);//ail
+        spinner8 = (Spinner) findViewById(R.id.spinner8);//etage
+        spinner9 = (Spinner) findViewById(R.id.spinner9);//lit
+        //Spinner Medecin
+        spinner10 = (Spinner) findViewById(R.id.spinner10);
+        //Spinner Intervention
+        spinner11 = (Spinner) findViewById(R.id.spinner11);
+
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateCentres();
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateHopitaux();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+        spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateBatiments();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+        spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateServices();                    }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+        spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateLits();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+
         villedao = new VilleDAO(getApplicationContext());
         villes = villedao.getAllVille();
         List<String> villespinner = new ArrayList();
@@ -68,24 +159,9 @@ public class Register extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, villespinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter);
-        Log.d("Verifier","Je suis la");
-
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String villeselectionne = spinner2.getSelectedItem().toString();
-                SpinnerCentre(villes, villeselectionne);
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
-            }
-        });
 
 
 
-        //Spinner Medecin
-        spinner10 = (Spinner) findViewById(R.id.spinner10);
-        List<Medecin> medecins;
         medecindao = new MedecinDAO(getApplicationContext());
         medecins = medecindao.getAll();
         List<String> medecinspinner = new ArrayList();
@@ -97,9 +173,8 @@ public class Register extends AppCompatActivity {
         spinner10.setAdapter(adapter11);
 
 
-        //Spinner Intervention
-        spinner11 = (Spinner) findViewById(R.id.spinner11);
-        List<TypeIntervention> interventions;
+
+
         interventiondao = new TypeInterventionDAO(getApplicationContext());
         interventions = interventiondao.getAllIntervention();
         List<String> interventionspinner = new ArrayList();
@@ -112,57 +187,36 @@ public class Register extends AppCompatActivity {
 
     }
 
-    public void SpinnerCentre(List<Ville> villes,String villeselectionne) {
+    public void populateCentres() {
+        String villeselectionne = spinner2.getSelectedItem().toString();
         //Centre
-        spinner3 = (Spinner) findViewById(R.id.spinner3);
-        List<Centre> centres;
         centreDAO = new CentreDAO(getApplicationContext());
 
-        for (Ville ville : villes)
+        for (Ville ville : villes) {
             if ((ville.getNomVille().equals(villeselectionne))) {
-
                 centres = centreDAO.getAllCentre(ville);
-
                 List<String> centrespinner = new ArrayList();
                 for (Centre centre : centres) {
 
-                        centrespinner.add(centre.getNomCentre());
-                        ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, centrespinner);
-                        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinner3.setAdapter(adapter2);
+                    centrespinner.add(centre.getNomCentre());
+                    ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, centrespinner);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner3.setAdapter(adapter2);
 
 
                 }
-
-                final List<Centre> finalCentres = centres;
-                spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        spinnerHopital(finalCentres);
-                    }
-
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        return;
-                    }
-                });
-
-                //Spinner Batiment
-
-
             }
-
+        }
     }
 
 
-    public void spinnerHopital(List<Centre> centres) {
+    public void populateHopitaux() {
 
-        spinner4 = (Spinner) findViewById(R.id.spinner4);
-        List<Hopital> hopitaux;
         hopitalDAO = new HopitalDAO(getApplicationContext());
         String centreselectionne = spinner3.getSelectedItem().toString();
         for (Centre centre : centres)
             if (centre.getNomCentre().equals(centreselectionne)) {
                 hopitaux = hopitalDAO.getAllHopital(centre);
-
                 List<String> hopitalspinner = new ArrayList();
                 for (Hopital hopital : hopitaux) {
                     hopitalspinner.add(hopital.getNomHopital());
@@ -170,30 +224,16 @@ public class Register extends AppCompatActivity {
                     adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner4.setAdapter(adapter3);
                 }
-                final List<Hopital> finalHopitaux = hopitaux;
-                spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        spinnerBatiment(finalHopitaux);                    }
-
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        return;
-                    }
-                });
-
-
             }
 
     }
 
-    public void spinnerBatiment(List<Hopital> hopitaux) {
-        spinner5 = (Spinner) findViewById(R.id.spinner5);
-        List<Batiment> batiments;
+    public void populateBatiments() {
         batimentDAO = new BatimentDAO(getApplicationContext());
         String hopitalselectionne = spinner4.getSelectedItem().toString();
         for (Hopital hopital : hopitaux)
             if (hopital.getNomHopital().equals(hopitalselectionne)) {
                 batiments = batimentDAO.getAllBatiment(hopital);
-
                 List<String> batimentspinner = new ArrayList();
                 for (Batiment batiment : batiments) {
                     batimentspinner.add(batiment.getNomBatiment());
@@ -201,27 +241,11 @@ public class Register extends AppCompatActivity {
                     adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner5.setAdapter(adapter4);
                 }
-                final List<Batiment> finalBatiments = batiments;
-                spinner5.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        spinnerService(finalBatiments);                    }
-
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        return;
-                    }
-                });
-
-
             }
     }
 
     //Spinner Lit Ail Etage
-    public void spinnerService(List<Batiment> batiments) {
-        Log.d("Verifier","Je suis dans spinner service");
-        spinner6 = (Spinner) findViewById(R.id.spinner6);
-        spinner7 = (Spinner) findViewById(R.id.spinner7);
-        spinner8 = (Spinner) findViewById(R.id.spinner8);
-        List<Service> services;
+    public void populateServices() {
         serviceDAO = new ServiceDAO(getApplicationContext());
         String batimentselectionne = spinner5.getSelectedItem().toString();
         for (Batiment batiment : batiments)
@@ -238,13 +262,15 @@ public class Register extends AppCompatActivity {
 
                 }
                 List<String> servicespinner = new ArrayList();
-                List<String> Ailspinner = new ArrayList();
-                List<Integer> Etagespinner = new ArrayList();
+                List<String> ailspinner = new ArrayList();
+                List<Integer> etagespinner = new ArrayList();
                 for (Service service : services) {
                     servicespinner.add(service.getLibelleService());
+                    ailspinner.add(service.getAil());
+                    etagespinner.add(service.getEtage());
                     ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, servicespinner);
-                    ArrayAdapter adapter8 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Ailspinner);
-                    ArrayAdapter adapter9 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Etagespinner);
+                    ArrayAdapter adapter8 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, ailspinner);
+                    ArrayAdapter adapter9 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, etagespinner);
                     adapter8.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner7.setAdapter(adapter8);
                     adapter9.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -252,22 +278,10 @@ public class Register extends AppCompatActivity {
                     adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner6.setAdapter(adapter5);
                 }
-                final List<Service> finalServices = services;
-                spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        spinnerLit(finalServices);
-                    }
-
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        return;
-                    }
-                });
             }
     }
 
-    public void spinnerLit(List<Service> services) {
-        spinner9 = (Spinner) findViewById(R.id.spinner9);
-        List<Lit> lits;
+    public void populateLits() {
         litDAO = new LitDAO(getApplicationContext());
         String serviceselectionne = spinner6.getSelectedItem().toString();
         for (Service service : services)
@@ -281,6 +295,95 @@ public class Register extends AppCompatActivity {
                     spinner9.setAdapter(adapter6);
                 }
             }
+    }
+
+    public void addPatient(View addButton) {
+        //TODO tester la validité des autres champs
+        if(!isMan && !isWoman) {
+            Toast.makeText(this, "Veuillez sélectionner le sexe du patient", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(dateSelectedFragment ==null || "".equals(dateSelectedFragment.getDate())) {
+            Toast.makeText(this, "Veuillez ajouter la date de naissance", Toast.LENGTH_SHORT).show();
+            return;
+
+        }
+        String sexe = isWoman ? "femme" : "homme";
+        Lit lit = selectedLit();
+        Medecin medecin = selectedMedecin();
+        TypeIntervention typeIntervention = selectedTypeIntervention();
+        if(lit==null || medecin==null || typeIntervention==null) {
+            Toast.makeText(this, "Des informations sont manquantes", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Patient patient =  new Patient(nomET.getText().toString(),prenomET.getText().toString(),dateSelectedFragment.getDate(),sexe,1,lit,medecin,typeIntervention);
+        long rowId = patientDAO.ajouterPatient(patient);
+        if(rowId!=-1) {
+            Toast.makeText(this, "Succées : patient ajouté", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(this, "Une erreur est survenu lors de l'ajout du patient", Toast.LENGTH_SHORT).show();
+            Log.e("ajout patient","patient : "+patient);
+
+        }
+    }
+
+    private Lit selectedLit() {
+        if(spinner9.getSelectedItem()==null) {
+            return null;
+        }
+        String litLabel = spinner9.getSelectedItem().toString();
+        for(Lit lit:lits) {
+            if(litLabel.equals(String.valueOf(lit.getNumeroLit()))) {
+                return lit;
+            }
+        }
+        return null;
+    }
+    private Medecin selectedMedecin() {
+        if(spinner10.getSelectedItem()==null) {
+            return null;
+        }
+        String medecinLabel = spinner10.getSelectedItem().toString();
+        for(Medecin medecin:medecins) {
+            if(medecinLabel.equals(String.valueOf(medecin.getNomMedecin()))) {
+                return medecin;
+            }
+        }
+        return null;
+    }
+    private TypeIntervention selectedTypeIntervention() {
+        if(spinner11.getSelectedItem()==null) {
+            return null;
+        }
+        String interventionLabel = spinner11.getSelectedItem().toString();
+        for(TypeIntervention typeIntervention:interventions) {
+            if(interventionLabel.equals(String.valueOf(typeIntervention.getLibelleIntevention()))) {
+                return typeIntervention;
+            }
+        }
+        return null;
+    }
+
+    public void showDateSelecter(View v) {
+        dateSelectedFragment = new DateSelecter();
+        dateSelectedFragment.show(getSupportFragmentManager(), "date picker");
+    }
+
+    public void onSexeRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radio_femme:
+                if (checked)
+                    isWoman = true;
+                    break;
+            case R.id.radio_homme:
+                if (checked)
+                    isMan=true;
+                    break;
+        }
     }
 }
 
