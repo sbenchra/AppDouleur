@@ -7,8 +7,8 @@
 
 
     <ScrollView
-        android:layout_width="400dp"
-        android:layout_height="836dp"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginEnd="8dp"
@@ -21,14 +21,8 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="395dp"
-            android:layout_height="555dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,8 +94,7 @@
                 android:contentDescription="Nom"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Nom"
-                tools:text="Nom" />
+                android:hint="Nom"/>
 
             <EditText
                 android:id="@+id/editText2"
@@ -109,8 +102,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Prenom"
-                tools:text="Prenom" />
+                android:hint="Prenom" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -118,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:text="Pseudo" />
+                tools:hint="Pseudo" />
 
             <EditText
                 android:id="@+id/editText5"
@@ -128,13 +120,54 @@
                 android:inputType="textPassword"
                 android:text="Password" />
 
-            <EditText
-                android:id="@+id/editText14"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:ems="10"
-                android:inputType="date"
-                tools:text="Date de naissance" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_weight=".70"
+                    android:layout_height="wrap_content"
+                    android:text="Date de naissance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--ajouter un logo-->
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="0dp"
+                    android:layout_weight=".20"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:onClick="showDateSelecter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/radio_femme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:text="Femme"
+                        android:onClick="onSexeRadioButtonClicked"/>
+                    <RadioButton android:id="@+id/radio_homme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".50"
+                        android:text="Homme"
+                        android:onClick="onSexeRadioButtonClicked"/>
+                </RadioGroup>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView12"
@@ -258,7 +291,8 @@
                 android:layout_width="104dp"
                 android:layout_height="27dp"
                 android:background="#3a94e9"
-                android:text="S'enregister" />
+                android:text="S'enregister"
+                android:onClick="addPatient"/>
 
         </LinearLayout>
     </ScrollView>
