@@ -17,6 +17,8 @@ import com.example.soufianebenchraa.appdouleur.Model.Centre;
 import com.example.soufianebenchraa.appdouleur.Model.CentreDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Hopital;
 import com.example.soufianebenchraa.appdouleur.Model.HopitalDAO;
+import com.example.soufianebenchraa.appdouleur.Model.InterventionService;
+import com.example.soufianebenchraa.appdouleur.Model.InterventionServiceDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Lit;
 import com.example.soufianebenchraa.appdouleur.Model.LitDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Medecin;
@@ -32,6 +34,7 @@ import com.example.soufianebenchraa.appdouleur.Model.VilleDAO;
 import com.example.soufianebenchraa.appdouleur.R;
 import com.example.soufianebenchraa.appdouleur.utils.DateSelecter;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +49,7 @@ public class Register extends AppCompatActivity {
     VilleDAO villedao;
     MedecinDAO medecindao;
     TypeInterventionDAO interventiondao;
+    InterventionServiceDAO interventionserviceDAO;
     Spinner spinner2;
     Spinner spinner3;
     Spinner spinner4;
@@ -64,6 +68,7 @@ public class Register extends AppCompatActivity {
     List<Service> services = new ArrayList<>();
     List<Lit> lits = new ArrayList<>();
     List<TypeIntervention> interventions = new ArrayList<>();
+    List<TypeIntervention> interventionsservice = new ArrayList<>();
     boolean isWoman = false;
     boolean isMan = false;
 
@@ -149,6 +154,16 @@ public class Register extends AppCompatActivity {
                 return;
             }
         });
+        spinner11.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                populateTypeIntervention();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+
 
         villedao = new VilleDAO(getApplicationContext());
         villes = villedao.getAllVille();
@@ -173,7 +188,7 @@ public class Register extends AppCompatActivity {
         spinner10.setAdapter(adapter11);
 
 
-
+/*
 
         interventiondao = new TypeInterventionDAO(getApplicationContext());
         interventions = interventiondao.getAllIntervention();
@@ -184,7 +199,7 @@ public class Register extends AppCompatActivity {
         ArrayAdapter adapter12 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, interventionspinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner11.setAdapter(adapter12);
-
+*/
     }
 
     public void populateCentres() {
@@ -294,6 +309,24 @@ public class Register extends AppCompatActivity {
                     adapter6.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner9.setAdapter(adapter6);
                 }
+
+            }
+    }
+
+    public void populateTypeIntervention() {
+        litDAO = new LitDAO(getApplicationContext());
+        String serviceselectionne = spinner6.getSelectedItem().toString();
+        for (Service service : services)
+            if (service.getLibelleService().equals(serviceselectionne)) {
+                interventionsservice = interventionserviceDAO.getAllIntervention(service);
+                List<String> typeinterventionspinner = new ArrayList();
+                for (TypeIntervention typeintervention : interventionsservice) {
+                    typeinterventionspinner.add(typeintervention.getLibelleIntevention());
+                    ArrayAdapter adapter55 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, typeinterventionspinner);
+                    adapter55.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner11.setAdapter(adapter55);
+                }
+
             }
     }
 
@@ -352,6 +385,8 @@ public class Register extends AppCompatActivity {
         }
         return null;
     }
+
+
     private TypeIntervention selectedTypeIntervention() {
         if(spinner11.getSelectedItem()==null) {
             return null;

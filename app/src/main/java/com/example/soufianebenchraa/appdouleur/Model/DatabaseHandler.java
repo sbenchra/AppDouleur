@@ -158,12 +158,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Intervention_Table_Create =
             "CREATE TABLE "+ Intervention_Table_Name + "(" +
                     Intervention_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Intervention_Date + " DATE," +
+                    Intervention_Date + " TEXT," +
                     Intervention_Heure +" TEXT,"+
                     Intervention_Name + " TEXT);";
             ;
 
 
+    public static final String InterventionService_Name_Table ="InterventionService";
+
+    public static final String InterventionService_Key ="IdInterventionService";
+
+
+    public static final String InterventionService_Table_Create =
+            "CREATE TABLE "+ InterventionService_Name_Table + "(" +
+                    InterventionService_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                    Service_Key + " INTEGER," +
+                    Intervention_Key +" INTEGER,"+
+                    "FOREIGN KEY(IdService) REFERENCES Service(IdService), FOREIGN KEY (IdIntervention) REFERENCES TypeIntervention(IdIntervention));";
 
 
 
@@ -215,7 +226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Medecin_TABLE_DROP);
 
         db.execSQL(Centre_TABLE_DROP);
-
+        db.execSQL(InterventionService_TABLE_DROP);
 
         onCreate(db);
 
@@ -237,6 +248,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Medecin_Table_Create);
         db.execSQL(Douleur_Table_Create);
         db.execSQL(Intervention_Table_Create);
+
+        db.execSQL(InterventionService_Table_Create);
         ContentValues value = new ContentValues();
         value.put("IdVille", 1);
         value.put("NomVille", "Montpellier");
@@ -302,7 +315,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert("Lit", null, value7);
 
+        ContentValues value12 = new ContentValues();
+        value12.put("IdIntervention", 1);
+        value12.put("LibelleTypeIntevention", "Soufinane");
+        value12.put("DateIntervention", "demain");
+        value12.put("HeureIntervention", "demain");
 
+        db.insert("TypeIntervention", null, value12);
+
+        ContentValues value13 = new ContentValues();
+        value13.put("IdInterventionService", 1);
+        value13.put("IdService", 1);
+        value13.put("IdIntervention", 1);
+
+
+        db.insert("InterventionService", null, value13);
 
 
     }
@@ -317,6 +344,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Batiment_TABLE_DROP = "DROP TABLE IF EXISTS " + Batiment_Table_Name+ ";";
     public static final String Hopital_TABLE_DROP = "DROP TABLE IF EXISTS " + Hopital_Table_Name+ ";";
     public static final String Ville_TABLE_DROP = "DROP TABLE IF EXISTS " + Ville_Table_Name+ ";";
+    public static final String InterventionService_TABLE_DROP = "DROP TABLE IF EXISTS " + InterventionService_Name_Table+ ";";
 
 
 

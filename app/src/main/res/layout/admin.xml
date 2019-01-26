@@ -18,6 +18,8 @@
         android:layout_marginBottom="8dp"
         android:background="#3a94e9"
         android:clickable="true"
+        android:onClick="goToPatient"
+
         android:text="Gestion des patients"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,6 +40,8 @@
         android:layout_marginBottom="8dp"
         android:background="#FF3A94E9"
         android:clickable="true"
+        android:onClick="goToMedecin"
+
         android:text="Gestion des medecins"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,6 +98,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:onClick="Disconnect"
         android:text="Déconnexion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

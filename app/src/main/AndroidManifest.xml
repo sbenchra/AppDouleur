@@ -12,7 +12,14 @@
         android:theme="@style/AppTheme">
         <activity android:name=".View.AjouterMedecin" android:noHistory="false"> </activity>
         <activity android:name=".View.ModifierMedecin" android:noHistory="false"> </activity>
-        <activity android:name=".View.GestionMedecin" android:noHistory="true">
+        <activity android:name=".View.Administrator" android:noHistory="false"> </activity>
+        <activity android:name=".View.ConnexionAdmin" android:noHistory="false"> </activity>
+        <activity android:name=".View.GestionPatient" android:noHistory="false"> </activity>
+        <activity android:name=".View.GestionMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".View.AjouterPatient" android:noHistory="false"> </activity>
+
+
+        <activity android:name=".View.Register" android:noHistory="true">
 
 
             <intent-filter>

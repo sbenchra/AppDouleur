@@ -3,6 +3,7 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,7 +128,7 @@ public class PatientDAO extends DAOBase {
 
     public int CheckPatient(String pseudoname, String motdepasse)
     {
-        Cursor cursor = getReadableDatabase().rawQuery("select * from Patient where PseudoPatient = ? AND PatientMotDePasse = ? ",new String[]{pseudoname + motdepasse});
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Patient where PseudoPatient = "+pseudoname+" AND PatientMotDePasse = "+motdepasse ,null);
         if(cursor!=null)
         {
             return 1;
@@ -136,5 +137,16 @@ public class PatientDAO extends DAOBase {
         {
             return 0;
         }
+    }
+
+    public int CheckPossiblity(String pseudoname){
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Patient where PseudoPatient = "+pseudoname ,null);
+
+            int etat = cursor.getInt(cursor.getColumnIndex("EtatPatient"));
+
+
+        return etat;
+
+
     }
 }

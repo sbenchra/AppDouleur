@@ -37,6 +37,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="#3a94e9"
+        android:onClick="connexion"
         android:text="Se connecter"
         android:textColor="#FFFF"
         app:layout_constraintBottom_toBottomOf="parent"

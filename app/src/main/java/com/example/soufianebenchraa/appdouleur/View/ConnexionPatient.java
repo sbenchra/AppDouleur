@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
 import com.example.soufianebenchraa.appdouleur.R;
@@ -34,6 +35,10 @@ public class ConnexionPatient extends AppCompatActivity {
                 } else {
                     //TODO il faut afficher une erreur au utilisateur
                     Log.e("Connexion", "Une erreur est survenue lors de la connexion");
+                }
+                if (patientDAO.CheckPossiblity(pseudo)==0)
+                {
+                    Toast.makeText(getApplicationContext(),"Votre compte n'a pas encore été vérfié",Toast.LENGTH_LONG).show();
                 }
             }
 

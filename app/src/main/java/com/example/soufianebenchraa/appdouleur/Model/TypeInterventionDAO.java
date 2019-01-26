@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TypeInterventionDAO extends DAOBase {
+
   public TypeInterventionDAO(Context pContext) {
     super(pContext);
   }
@@ -18,6 +19,7 @@ public class TypeInterventionDAO extends DAOBase {
 
 
     public List<TypeIntervention> getAllIntervention() {
+
         List<TypeIntervention> l = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery("select * from TypeIntervention", null);
         if (cursor != null) {

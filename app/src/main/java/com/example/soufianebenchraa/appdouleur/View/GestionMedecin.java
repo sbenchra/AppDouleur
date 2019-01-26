@@ -2,7 +2,6 @@ package com.example.soufianebenchraa.appdouleur.View;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.view.ContextMenu;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +35,6 @@ public class GestionMedecin extends AppCompatActivity{
         populateDisplayedMedecins();
         j = new Intent (GestionMedecin.this, ModifierMedecin.class);
     }
-
 
     /**
      * il faut recuperer les données depuis le layout (nom,prenom,numero...) et appeller le addMedecin avec ces données
@@ -99,7 +97,6 @@ public class GestionMedecin extends AppCompatActivity{
         numberTV.setText(medecin.getNumeroMedecin());
         tableRow.addView(numberTV, 2);
         tableRow.setClickable(true);
-        registerForContextMenu(tableRow);
 
 
         tableRow.setOnClickListener(new View.OnClickListener() {
@@ -111,26 +108,12 @@ public class GestionMedecin extends AppCompatActivity{
                 j.putExtra("numeromedecin",medecin.getNumeroMedecin());
                 j.putExtra("pseudo",medecin.getPseudoMedecin());
                 j.putExtra("mpd",medecin.getMotDePasseMedecin());
+                startActivity(j);
 
             }
         });
 
         return tableRow;
     }
-    @Override
-    public void OnCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        super.onCreateContextMenu(menu,view,menuInfo);
-        getMenuInflater().inflate(R.menu.menumedecin,menu);
-    }
 
-
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.modifier:
-                startActivity(j);
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
 }

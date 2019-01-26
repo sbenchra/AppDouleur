@@ -31,7 +31,7 @@ public class GestionPatient extends AppCompatActivity {
     }
 
     public void goToAjouterPatient(View addButton) {
-        Intent i = new Intent (GestionPatient.this, AjouterPatient.class);
+        Intent i = new Intent (GestionPatient.this, Register.class);
         startActivity(i);
     }
 
