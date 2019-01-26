@@ -62,7 +62,7 @@ public class MedecinDAO extends DAOBase {
         mDb.delete(Medecin_Table_NAME, Medecin_Key + " = ?", new String[] {String.valueOf(id)});
     }
 
-    public void modifierFMedecin(Medecin m)
+    public void modifierMedecin(Medecin m)
     {
         ContentValues value = new ContentValues();
         value.put(MedecinDAO.Medecin_FName, m.getPrenomMedecin());

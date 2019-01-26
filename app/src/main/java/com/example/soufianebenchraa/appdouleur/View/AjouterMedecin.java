@@ -20,7 +20,6 @@ public class AjouterMedecin extends AppCompatActivity {
     EditText tonEdit;
     EditText tonEdit1;
     EditText tonEdit2;
-
     EditText tonEdit3;
     EditText tonEdit4;
     String NomMedecin;
@@ -45,6 +44,7 @@ public class AjouterMedecin extends AppCompatActivity {
         double a = random();
         int b = (int) a;
         Medecin m = new Medecin(b,NomMedecin,PrenomMedecin,NumeroMedecin,PseudoMedecin,PasswordMedecin);
+        Log.d("Saisir",PasswordMedecin);
         long rowId = medecinDAO.ajouterMedecin(m);
         if(rowId!=-1) {
             Intent i = new Intent (AjouterMedecin.this, GestionMedecin.class);

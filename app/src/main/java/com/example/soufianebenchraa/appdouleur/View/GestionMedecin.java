@@ -69,7 +69,7 @@ public class GestionMedecin extends AppCompatActivity{
     /**
      * créer une ligne d'affichage pour le medecin
      */
-    private TableRow createTableRow(Medecin medecin) {
+    private TableRow createTableRow(final Medecin medecin) {
         Context context = getApplicationContext();
         // Create a new table row.
         TableRow tableRow = new TableRow(getApplicationContext());
@@ -92,6 +92,20 @@ public class GestionMedecin extends AppCompatActivity{
         numberTV.setTextColor(Color.parseColor("#3a94e9"));
         numberTV.setText(medecin.getNumeroMedecin());
         tableRow.addView(numberTV, 2);
+        tableRow.setClickable(true);
+        tableRow.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent (GestionMedecin.this, ModifierMedecin.class);
+                i.putExtra("idmedecin", medecin.getIdMedecin());
+                i.putExtra("nommedecin", medecin.getNomMedecin());
+                i.putExtra("prenommedecin",medecin.getPrenomMedecin());
+                i.putExtra("numeromedecin",medecin.getNumeroMedecin());
+                i.putExtra("pseudo",medecin.getPseudoMedecin());
+                i.putExtra("mpd",medecin.getMotDePasseMedecin());
+                startActivity(i);
+
+            }
+        });
 
         return tableRow;
     }
