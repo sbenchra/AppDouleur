@@ -14,17 +14,18 @@
         <activity android:name=".View.ModifierMedecin" android:noHistory="false"> </activity>
         <activity android:name=".View.Administrator" android:noHistory="false"> </activity>
         <activity android:name=".View.ConnexionAdmin" android:noHistory="false"> </activity>
+        <activity android:name=".View.Register" android:noHistory="false"> </activity>
 
         <activity android:name=".View.AjouterPatient" android:noHistory="false"> </activity>
 
 
         <activity android:name=".View.GestionPatient" android:noHistory="true">
 
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
 

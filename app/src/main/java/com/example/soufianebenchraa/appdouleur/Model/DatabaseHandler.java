@@ -138,7 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Patient_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Patient_FName + " TEXT, " +
                     Patient_LName + " TEXT," +
-                    Patient_Birthdate + "TEXT,"+
+                    Patient_Birthdate + " TEXT,"+
                     Patient_Sexe + " TEXT,"+
                     Patient_Pseudo +" TEXT,"+
                     Patient_MotDePasse +" TEXT,"+
@@ -346,7 +346,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         value20.put("IdAil", "Gauche");
 
 
-        db.insert("Ail", null, value16);
+        db.insert("Ail", null, value20);
 
 
         ContentValues value7 = new ContentValues();

@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                tools:hint="Pseudo" />
+                android:hint="Pseudo" />
 
             <EditText
                 android:id="@+id/editText5"

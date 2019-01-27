@@ -3,6 +3,7 @@ package com.example.soufianebenchraa.appdouleur.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -45,41 +46,44 @@ public class PatientDAO extends DAOBase {
         Cursor cursor = getReadableDatabase().rawQuery("select * from Patient p,Lit l,Service s,Ail a,Etage e,Medecin m,TypeIntervention t,Batiment b,Hopital h,Centre c,Ville v " +
                 "where p.IdLit=l.IdLit and p.IdMedecin=m.IdMedecin and l.IdService=s.IdService and p.IdIntervention= t.IdIntervention and l.IdAil=a.IdAil and l.IdEtage=e.IdEtage" +
                 " and s.IdBatiment=b.IdBatiment and h.IdHopital=b.IdHopital and c.IdCentre=h.IdCentre and v.IdVille=c.IdVille",null);
+
+
         if(cursor!=null) {
+            Log.e("get patients","cursor is not null" + cursor.getCount());
             while(cursor.moveToNext()) {
+                Log.e("get patients","request succeded");
+                String lName = cursor.getString(cursor.getColumnIndex("NomPatient"));
+                String fName = cursor.getString(cursor.getColumnIndex("PrenomPatient"));
+                String SexePatient = cursor.getString(cursor.getColumnIndex("SexePatient"));
+                String DateNaissance = cursor.getString(cursor.getColumnIndex("NaissancePatient"));
+                String PseudoPatient = cursor.getString(cursor.getColumnIndex("PseudoPatient"));
+                String MotdepassePatient = cursor.getString(cursor.getColumnIndex("PatientMotDePasse"));
+                int EtatPatient = cursor.getInt( cursor.getColumnIndex("EtatPatient"));
+                int idlit = cursor.getInt(cursor.getColumnIndex("IdLit"));
+                int numerolit = cursor.getInt(cursor.getColumnIndex("NumeroLit"));
+                int idService = cursor.getInt(cursor.getColumnIndex("IdService"));
+                String nomservice = cursor.getString(cursor.getColumnIndex("LibelleService"));
 
-                String lName = cursor.getString(cursor.getColumnIndex("p.NomPatient"));
-                String fName = cursor.getString(cursor.getColumnIndex("p.PrenomPatient"));
-                String SexePatient = cursor.getString(cursor.getColumnIndex("p.SexePatient"));
-                String DateNaissance = cursor.getString(cursor.getColumnIndex("p.NaissancePatient"));
-                String PseudoPatient = cursor.getString(cursor.getColumnIndex("p.PseudoPatient"));
-                String MotdepassePatient = cursor.getString(cursor.getColumnIndex("p.PatientMotdePasse"));
-                int EtatPatient = cursor.getInt( cursor.getColumnIndex("p.EtatPatient"));
-                int idlit = cursor.getInt(cursor.getColumnIndex("l.IdLit"));
-                int numerolit = cursor.getInt(cursor.getColumnIndex("l.NumeroLit"));
-                int idService = cursor.getInt(cursor.getColumnIndex("s.IdService"));
-                String nomservice = cursor.getString(cursor.getColumnIndex("s.LibelleService"));
+                String ail = cursor.getString(cursor.getColumnIndex("IdAil"));
+                String etage = cursor.getString(cursor.getColumnIndex("IdEtage"));
+                int idbatiment = cursor.getInt(cursor.getColumnIndex("IdBatiment"));
+                String nombatiment = cursor.getString(cursor.getColumnIndex("NomBatiment"));
+                int idhopital = cursor.getInt(cursor.getColumnIndex("IdHopital"));
+                String nomhopital = cursor.getString(cursor.getColumnIndex("NomHopital"));
 
-                String ail = cursor.getString(cursor.getColumnIndex("a.IdAil"));
-                String etage = cursor.getString(cursor.getColumnIndex("e.IdEtage"));
-                int idbatiment = cursor.getInt(cursor.getColumnIndex("b.IdBatiment"));
-                String nombatiment = cursor.getString(cursor.getColumnIndex("b.NomBatiment"));
-                int idhopital = cursor.getInt(cursor.getColumnIndex("h.IdHopital"));
-                String nomhopital = cursor.getString(cursor.getColumnIndex("h.NomHopital"));
-
-                String nomcentre = cursor.getString(cursor.getColumnIndex("c.NomCentre"));
-                int idcentre = cursor.getInt(cursor.getColumnIndex("c.IdCentre"));
-                int idville = cursor.getInt(cursor.getColumnIndex("v.IdVille"));
-                String nomville = cursor.getString(cursor.getColumnIndex("v.nomville"));
-                int idIntervention = cursor.getInt(cursor.getColumnIndex("t.IdIntervention"));
-                String libelleintervention = cursor.getString(cursor.getColumnIndex("t.LibelleIntervention"));
-                String dateintervention = cursor.getString(cursor.getColumnIndex("p.DateIntervention"));
-                int idmedecin = cursor.getInt(cursor.getColumnIndex("m.IdMedecin"));
-                String nommedecin = cursor.getString(cursor.getColumnIndex("m.NomMedecin"));
-                String prenommedecin = cursor.getString(cursor.getColumnIndex("m.PrenomMedecin"));
-                String numeromedecin = cursor.getString(cursor.getColumnIndex("m.NumeroMedecin"));
-                String pseudoMedecin = cursor.getString(cursor.getColumnIndex("m.PseudoMedecin"));
-                String motdepassemedecin = cursor.getString(cursor.getColumnIndex("m.MedecinMotDePasse"));
+                String nomcentre = cursor.getString(cursor.getColumnIndex("CentreNom"));
+                int idcentre = cursor.getInt(cursor.getColumnIndex("IdCentre"));
+                int idville = cursor.getInt(cursor.getColumnIndex("IdVille"));
+                String nomville = cursor.getString(cursor.getColumnIndex("NomVille"));
+                int idIntervention = cursor.getInt(cursor.getColumnIndex("IdIntervention"));
+                String libelleintervention = cursor.getString(cursor.getColumnIndex("LibelleTypeIntervention"));
+                String dateintervention = cursor.getString(cursor.getColumnIndex("DateIntervention"));
+                int idmedecin = cursor.getInt(cursor.getColumnIndex("IdMedecin"));
+                String nommedecin = cursor.getString(cursor.getColumnIndex("NomMedecin"));
+                String prenommedecin = cursor.getString(cursor.getColumnIndex("PrenomMedecin"));
+                String numeromedecin = cursor.getString(cursor.getColumnIndex("NumeroMedecin"));
+                String pseudoMedecin = cursor.getString(cursor.getColumnIndex("PseudoMedecin"));
+                String motdepassemedecin = cursor.getString(cursor.getColumnIndex("MedecinMotDePasse"));
 
 
                 Ville v = new Ville(idville,nomville);

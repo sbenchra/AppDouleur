@@ -1,5 +1,6 @@
 package com.example.soufianebenchraa.appdouleur.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -386,9 +387,10 @@ public class Register extends AppCompatActivity {
         Patient patient =  new Patient(nomET.getText().toString(),prenomET.getText().toString(),dateSelectedFragment.getDate(),sexe,pseudoET.getText().toString(),passwordET.getText().toString(),0,dateSelectedFragment2.getDate(),lit,medecin,typeIntervention);
         long rowId = patientDAO.ajouterPatient(patient);
 
-        if(rowId!=-1) {
-            Toast.makeText(this, "Succées : patient ajouté", Toast.LENGTH_SHORT).show();
-
+        if(rowId>0) {
+            Toast.makeText(this, "Succées : patient ajouté + "+ rowId, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent (Register.this, GestionPatient.class);
+            startActivity(i);
         } else {
             Toast.makeText(this, "Une erreur est survenu lors de l'ajout du patient", Toast.LENGTH_SHORT).show();
             Log.e("ajout patient","patient : "+patient);
@@ -397,13 +399,13 @@ public class Register extends AppCompatActivity {
     }
 
     private Ail selectedAil(){
-        if(spinner9.getSelectedItem()==null) {
+        if(spinner7.getSelectedItem()==null) {
             return null;
         }
-        String ailLabel = spinner9.getSelectedItem().toString();
+        String ailLabel = spinner7.getSelectedItem().toString();
         for (Ail ail: ails)
         {
-            if(spinner9.getSelectedItem().toString().equals(ail.getAil()))
+            if(ailLabel.equals(ail.getAil()))
             {
                 return ail;
                 }
@@ -419,7 +421,7 @@ public class Register extends AppCompatActivity {
         String etageLabel = spinner8.getSelectedItem().toString();
         for (Etage etage: etages)
 
-            if(spinner8.getSelectedItem().toString().equals(etage.getEtage()))
+            if(etageLabel.equals(etage.getEtage()))
         {
             return etage;
         }

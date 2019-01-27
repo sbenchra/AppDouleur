@@ -14,6 +14,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.soufianebenchraa.appdouleur.Model.Ail;
+import com.example.soufianebenchraa.appdouleur.Model.AilDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Medecin;
 import com.example.soufianebenchraa.appdouleur.Model.Patient;
 import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
@@ -50,6 +52,8 @@ public class GestionPatient extends AppCompatActivity {
      */
     private void populateDisplayedPatients() {
         List<Patient> patients = patientDAO.getAll();
+        Log.d("size",String.valueOf(patients.size()));
+
         if(patients.isEmpty()){
         Log.d("Ici","aucun patient saisi");}
         if(patients!=null && patients.size()>0) {
@@ -95,7 +99,7 @@ public class GestionPatient extends AppCompatActivity {
 
         TextView Lit = new TextView(context);
         Lit.setTextColor(Color.parseColor("#3a94e9"));
-        Lit.setText(patient.getLit().getNumeroLit());
+        Lit.setText(String.valueOf(patient.getLit().getNumeroLit()));
         tableRow.addView(Lit, 4);
         TextView Service = new TextView(context);
         Service.setTextColor(Color.parseColor("#3a94e9"));
@@ -135,7 +139,7 @@ public class GestionPatient extends AppCompatActivity {
         tableRow.addView(LibelleIntervention, 13);
         TextView Etat = new TextView(context);
         Etat.setTextColor(Color.parseColor("#3a94e9"));
-        Etat.setText(patient.getEtatPatient());
+        Etat.setText(String.valueOf(patient.getEtatPatient()));
         tableRow.addView(Etat, 14);
         tableRow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
