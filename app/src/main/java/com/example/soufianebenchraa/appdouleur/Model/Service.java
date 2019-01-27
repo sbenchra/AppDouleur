@@ -3,10 +3,14 @@ package com.example.soufianebenchraa.appdouleur.Model;
 public class Service {
 
 	private int IdService;
-	private int Etage;
-	private String Ail;
 	private String LibelleService;
 	private Batiment batiment;
+
+    public Service(int idService, String libelleService, Batiment batiment) {
+        IdService = idService;
+        LibelleService = libelleService;
+        this.batiment = batiment;
+    }
 
     public int getIdService() {
         return IdService;
@@ -14,22 +18,6 @@ public class Service {
 
     public void setIdService(int idService) {
         IdService = idService;
-    }
-
-    public int getEtage() {
-        return Etage;
-    }
-
-    public void setEtage(int etage) {
-        Etage = etage;
-    }
-
-    public String getAil() {
-        return Ail;
-    }
-
-    public void setAil(String ail) {
-        Ail = ail;
     }
 
     public String getLibelleService() {
@@ -45,15 +33,6 @@ public class Service {
     }
 
     public void setBatiment(Batiment batiment) {
-        this.batiment = batiment;
-    }
-
-    public Service(int idService, int etage, String ail, String libelleService, Batiment batiment) {
-
-        IdService = idService;
-        Etage = etage;
-        Ail = ail;
-        LibelleService = libelleService;
         this.batiment = batiment;
     }
 }

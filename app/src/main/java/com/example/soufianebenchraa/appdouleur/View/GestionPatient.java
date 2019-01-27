@@ -50,6 +50,8 @@ public class GestionPatient extends AppCompatActivity {
      */
     private void populateDisplayedPatients() {
         List<Patient> patients = patientDAO.getAll();
+        if(patients.isEmpty()){
+        Log.d("Ici","aucun patient saisi");}
         if(patients!=null && patients.size()>0) {
             for (Patient patient:patients) {
                 addPatientToDisplayedList(patient);
@@ -101,11 +103,11 @@ public class GestionPatient extends AppCompatActivity {
         tableRow.addView(Service, 5);
         TextView Ail = new TextView(context);
         Ail.setTextColor(Color.parseColor("#3a94e9"));
-        Ail.setText(patient.getLit().getService().getAil());
+        Ail.setText(patient.getLit().getAil().getAil());
         tableRow.addView(Ail, 6);
         TextView Etage = new TextView(context);
         Etage.setTextColor(Color.parseColor("#3a94e9"));
-        Etage.setText(patient.getLit().getService().getEtage());
+        Etage.setText(patient.getLit().getEtage().getEtage());
         tableRow.addView(Etage, 7);
         TextView Batiment = new TextView(context);
         Batiment.setTextColor(Color.parseColor("#3a94e9"));

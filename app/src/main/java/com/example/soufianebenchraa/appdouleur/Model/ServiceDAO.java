@@ -31,9 +31,7 @@ public class ServiceDAO extends DAOBase {
 
           int idservice = cursor.getInt(cursor.getColumnIndex(Service_Key));
           String libelleservice = cursor.getString(cursor.getColumnIndex(Service_Name));
-          int etage = cursor.getInt(cursor.getColumnIndex(Service_Etage));
-          String ail = cursor.getString(cursor.getColumnIndex(Service_Ail));
-          Service s = new Service(idservice,etage,ail,libelleservice,b);
+          Service s = new Service(idservice,libelleservice,b);
           Log.d("Curseur",s.getLibelleService());
           l.add(s);
 
@@ -51,8 +49,7 @@ public class ServiceDAO extends DAOBase {
   {
     super.open();
     ContentValues value = new ContentValues();
-    value.put(ServiceDAO.Service_Etage, s.getEtage());
-    value.put(ServiceDAO.Service_Ail, s.getAil());
+
     value.put(ServiceDAO.Service_Name, s.getLibelleService());
     value.put(ServiceDAO.Service_Batiment, s.getBatiment().getIdBatiment());
   }
@@ -64,35 +61,5 @@ public class ServiceDAO extends DAOBase {
 
   }
 
-  public void ModifierEtage(String etage, Service s )
-  {
-    ContentValues value = new ContentValues();
 
-    value.put(etage, s.getEtage());
-
-    mDb.update(Service_Table_Name, value, Service_Key  + " = ?", new String[] {String.valueOf(s.getIdService())});
-  }
-
-
-
-
-  public Service SelectionnerService(Batiment b)
-
-  {
-
-    Cursor c = mDb.rawQuery("select * from Service NATURAL JOIN Batiment" + " where IdService = ? ", new String[]{b.getIdBatiment() + ""});
-
-    int IdService = c.getInt(0);
-    int etage  = c.getInt(1);
-    String Ail =c.getString(2);
-    String NomService=c.getString(3);
-
-
-
-
-    Service s = new Service(IdService,etage,Ail,NomService,b);
-
-    return s;
-
-  }
 }

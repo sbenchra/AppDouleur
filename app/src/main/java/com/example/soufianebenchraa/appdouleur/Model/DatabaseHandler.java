@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -42,8 +43,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     public static final String Service_Key="IdService";
-    public static final String Service_Etage="Etage";
-    public static final String Service_Ail="Ail";
     public static final String Service_Name="LibelleService";
     public static final String Service_Table_Name="Service";
     public static final String Service_Batiment="IdBatiment";
@@ -51,8 +50,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Service_Table_Create =
             " CREATE TABLE IF NOT EXISTS " + Service_Table_Name + "(" +
                     Service_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Service_Etage + " INTEGER,"+
-                    Service_Ail + " TEXT ,"+
                     Service_Name + " TEXT," +
                     Service_Batiment + " INTEGER," +
                     "FOREIGN KEY(IdBatiment) REFERENCES Batiment(IdBatiment))";
@@ -276,6 +273,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Etage_Table_Create);
 
         db.execSQL(InterventionService_Table_Create);
+
+
+
         ContentValues value = new ContentValues();
         value.put("IdVille", 1);
         value.put("NomVille", "Montpellier");
@@ -318,8 +318,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues value6 = new ContentValues();
         value6.put("IdService", 1);
-        value6.put("Etage", 1);
-        value6.put("Ail", "Gauche");
         value6.put("LibelleService", "Rachis");
         value6.put("IdBatiment", 2);
 
@@ -327,17 +325,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues value9 = new ContentValues();
         value9.put("IdService", 2);
-        value9.put("Etage", 1);
-        value9.put("Ail", "Gauche");
         value9.put("LibelleService", "ORL");
         value9.put("IdBatiment", 2);
 
         db.insert("Service", null, value9);
 
+        ContentValues value15 = new ContentValues();
+        value15.put("IdEtage", "1");
+
+
+        db.insert("Etage", null, value15);
+
+        ContentValues value16 = new ContentValues();
+        value16.put("IdEtage", "3");
+
+
+        db.insert("Etage", null, value16);
+
+        ContentValues value20 = new ContentValues();
+        value20.put("IdAil", "Gauche");
+
+
+        db.insert("Ail", null, value16);
+
+
         ContentValues value7 = new ContentValues();
         value7.put("IdLit", 1);
         value7.put("NumeroLit", 1);
         value7.put("IdService", 1);
+        value7.put("IdEtage", "1");
+        value7.put("IdAil", "Gauche");
+
 
         db.insert("Lit", null, value7);
 
@@ -369,20 +387,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert("Medecin", null, value14);
 
-        ContentValues value15 = new ContentValues();
-        value15.put("IdEtage", "1");
 
 
-        db.insert("Etage", null, value15);
 
-        ContentValues value16 = new ContentValues();
-        value16.put("IdEtage", "3");
+        ContentValues value88 = new ContentValues();
+        value88.put("PrenomPatient", "Soufiane");
+        value88.put("NomPatient", "Benchraa");
+        value88.put(Patient_Birthdate,"01/01/1995");
+        value88.put(Patient_Sexe,"Homme");
+        value88.put(Patient_Pseudo ,"sbenchra");
+        value88.put(Patient_MotDePasse,"123456");
+        value88.put(Patient_Etat,0);
+        value88.put(Intervention_Date,"13/15/2012");
+        value88.put(Patient_Lit,1);
+        value88.put(Patient_Medecin,1);
+        value88.put(Intervention_Key,1);
 
 
-        db.insert("Etage", null, value16);
+        long rowInserted = db.insert("Patient", null, value88);
+        if(rowInserted != -1){
+            Log.d("Insertion","Patient inséré");
+        }
 
+        else{
+            Log.d("Insertion","Patient non inséré");}
 
     }
+
     public static final String Service_TABLE_DROP = "DROP TABLE IF EXISTS " + Service_Table_Name + ";";
     public static final String Lit_TABLE_DROP = "DROP TABLE IF EXISTS " + Lit_Table_Name + ";";
     public static final String Patient_TABLE_DROP = "DROP TABLE IF EXISTS " + Patient_TABLE_NAME + ";";
