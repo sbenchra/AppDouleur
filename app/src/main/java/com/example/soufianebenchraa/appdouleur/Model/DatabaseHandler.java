@@ -49,13 +49,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Service_Batiment="IdBatiment";
 
     public static final String Service_Table_Create =
-            " CREATE TABLE " + Service_Table_Name + "(" +
+            " CREATE TABLE IF NOT EXISTS " + Service_Table_Name + "(" +
                     Service_Key+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Service_Etage + " INTEGER,"+
                     Service_Ail + " TEXT ,"+
                     Service_Name + " TEXT," +
                     Service_Batiment + " INTEGER," +
                     "FOREIGN KEY(IdBatiment) REFERENCES Batiment(IdBatiment))";
+    public static final String Ail_Key="IdAil";
+    public static final String Ail_Table_Name="Ail";
+
+    public static final String Ail_Table_Create =
+            " CREATE TABLE " + Ail_Table_Name + "(" +
+                    Ail_Key+ " TEXT PRIMARY KEY );";
+
+    public static final String Etage_Key="IdEtage";
+    public static final String Etage_Table_Name="Etage";
+
+    public static final String Etage_Table_Create =
+            " CREATE TABLE " + Etage_Table_Name + "(" +
+                    Etage_Key+ " TEXT PRIMARY KEY );";
+
+
+
+
+
 
 
 
@@ -68,7 +86,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "CREATE TABLE " + Lit_Table_Name + "(" +
                     Lit_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Lit_NumeroLit + " INTEGER,"+
-                    Lit_Service + " INTEGER , FOREIGN KEY (IdService) REFERENCES Service (IdService));";
+                    Lit_Service + " INTEGER , " +
+                    Ail_Key + " INTEGER , " +
+                    Etage_Key + " INTEGER , " +
+
+                    "FOREIGN KEY (IdService) REFERENCES Service (IdService), FOREIGN KEY (IdAil) REFERENCES Ail (IdAil), FOREIGN KEY (IdEtage) REFERENCES Etage (IdEtage)) ;";
+
+
+
 
 
     public static final String Medecin_Key = "IdMedecin";
@@ -98,13 +123,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String Patient_Lit = "IdLit";
     public static final String Patient_Medecin="IdMedecin";
-    public static final String Patient_Birthdate = "DateNaissancePatient";
-
+    public static final String Patient_Birthdate = "NaissancePatient";
     public static final String Intervention_Key ="IdIntervention";
     public static final String Patient_Sexe = "SexePatient";
     public static final String Patient_Pseudo = "PseudoPatient";
     public static final String Patient_Etat = "EtatPatient";
     public static final String Patient_MotDePasse = "PatientMotDePasse";
+    public static final String Intervention_Date="DateIntervention";
 
 
     public static final String Patient_TABLE_NAME = "Patient";
@@ -121,9 +146,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     Patient_Pseudo +" TEXT,"+
                     Patient_MotDePasse +" TEXT,"+
                     Patient_Etat +" INTEGER,"+
+                    Intervention_Date + " TEXT," +
                     Patient_Lit + " INTEGER, " +
                     Patient_Medecin +" INTEGER,"+
                     Intervention_Key +" INTEGER,"+
+
 
 
                     " FOREIGN KEY(IdIntervention) REFERENCES Intervention(IdIntervention) ,FOREIGN KEY(IdLit) REFERENCES Lit(IdLit) ,FOREIGN KEY(IdMedecin) REFERENCES Medecin(IdMedecin) );";
@@ -149,19 +176,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     ", FOREIGN KEY(IdPatient) REFERENCES Patient(PatientId));";
 
 
-    public static final String Intervention_Name ="LibelleTypeIntevention";
-    public static final String Intervention_Date="DateIntervention";
-    public static final String Intervention_Heure="HeureIntervention";
+    public static final String Intervention_Name ="LibelleTypeIntervention";
 
     public static final String Intervention_Table_Name="TypeIntervention";
 
     public static final String Intervention_Table_Create =
             "CREATE TABLE "+ Intervention_Table_Name + "(" +
                     Intervention_Key + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
-                    Intervention_Date + " TEXT," +
-                    Intervention_Heure +" TEXT,"+
                     Intervention_Name + " TEXT);";
-            ;
+
 
 
     public static final String InterventionService_Name_Table ="InterventionService";
@@ -224,8 +247,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Douleur_TABLE_DROP);
         db.execSQL(Intervention_TABLE_DROP);
         db.execSQL(Medecin_TABLE_DROP);
-
         db.execSQL(Centre_TABLE_DROP);
+        db.execSQL(Ail_TABLE_DROP);
+        db.execSQL(Etage_TABLE_DROP);
         db.execSQL(InterventionService_TABLE_DROP);
 
         onCreate(db);
@@ -248,6 +272,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(Medecin_Table_Create);
         db.execSQL(Douleur_Table_Create);
         db.execSQL(Intervention_Table_Create);
+        db.execSQL(Ail_Table_Create);
+        db.execSQL(Etage_Table_Create);
 
         db.execSQL(InterventionService_Table_Create);
         ContentValues value = new ContentValues();
@@ -317,9 +343,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues value12 = new ContentValues();
         value12.put("IdIntervention", 1);
-        value12.put("LibelleTypeIntevention", "Soufinane");
-        value12.put("DateIntervention", "demain");
-        value12.put("HeureIntervention", "demain");
+        value12.put("LibelleTypeIntervention", "Soufinane");
+
+
 
         db.insert("TypeIntervention", null, value12);
 
@@ -330,6 +356,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         db.insert("InterventionService", null, value13);
+
+        ContentValues value14 = new ContentValues();
+        value14.put("IdMedecin", 1);
+        value14.put("PrenomMedecin", "soufiane");
+        value14.put("NomMedecin", "benchraa");
+        value14.put("NumeroMedecin", "075");
+        value14.put("PseudoMedecin", "sebcnrha");
+        value14.put("MedecinMotDePasse", "sebcnrha");
+
+
+
+        db.insert("Medecin", null, value14);
+
+        ContentValues value15 = new ContentValues();
+        value15.put("IdEtage", "1");
+
+
+        db.insert("Etage", null, value15);
+
+        ContentValues value16 = new ContentValues();
+        value16.put("IdEtage", "3");
+
+
+        db.insert("Etage", null, value16);
 
 
     }
@@ -344,6 +394,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String Batiment_TABLE_DROP = "DROP TABLE IF EXISTS " + Batiment_Table_Name+ ";";
     public static final String Hopital_TABLE_DROP = "DROP TABLE IF EXISTS " + Hopital_Table_Name+ ";";
     public static final String Ville_TABLE_DROP = "DROP TABLE IF EXISTS " + Ville_Table_Name+ ";";
+    public static final String Ail_TABLE_DROP = "DROP TABLE IF EXISTS " + Ail_Table_Name+ ";";
+    public static final String Etage_TABLE_DROP = "DROP TABLE IF EXISTS " + Etage_Table_Name+ ";";
+
+
     public static final String InterventionService_TABLE_DROP = "DROP TABLE IF EXISTS " + InterventionService_Name_Table+ ";";
 
 

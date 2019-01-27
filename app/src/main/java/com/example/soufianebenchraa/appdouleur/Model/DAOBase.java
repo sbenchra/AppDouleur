@@ -8,7 +8,7 @@ public abstract class DAOBase  {
 // Nous sommes à la première version de la base
 
   // Si je décide de la mettre à jour, il faudra changer cet
-  protected final static int VERSION = 8;
+  protected final static int VERSION = 22;
 
 
   protected final static String NOM = "database.db";

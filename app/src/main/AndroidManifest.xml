@@ -15,7 +15,6 @@
         <activity android:name=".View.Administrator" android:noHistory="false"> </activity>
         <activity android:name=".View.ConnexionAdmin" android:noHistory="false"> </activity>
         <activity android:name=".View.GestionPatient" android:noHistory="false"> </activity>
-        <activity android:name=".View.GestionMedecin" android:noHistory="false"> </activity>
         <activity android:name=".View.AjouterPatient" android:noHistory="false"> </activity>
 
 

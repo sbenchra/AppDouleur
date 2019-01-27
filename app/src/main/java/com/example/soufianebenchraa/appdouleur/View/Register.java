@@ -11,13 +11,16 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.soufianebenchraa.appdouleur.Model.Ail;
+import com.example.soufianebenchraa.appdouleur.Model.AilDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Batiment;
 import com.example.soufianebenchraa.appdouleur.Model.BatimentDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Centre;
 import com.example.soufianebenchraa.appdouleur.Model.CentreDAO;
+import com.example.soufianebenchraa.appdouleur.Model.Etage;
+import com.example.soufianebenchraa.appdouleur.Model.EtageDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Hopital;
 import com.example.soufianebenchraa.appdouleur.Model.HopitalDAO;
-import com.example.soufianebenchraa.appdouleur.Model.InterventionService;
 import com.example.soufianebenchraa.appdouleur.Model.InterventionServiceDAO;
 import com.example.soufianebenchraa.appdouleur.Model.Lit;
 import com.example.soufianebenchraa.appdouleur.Model.LitDAO;
@@ -34,7 +37,6 @@ import com.example.soufianebenchraa.appdouleur.Model.VilleDAO;
 import com.example.soufianebenchraa.appdouleur.R;
 import com.example.soufianebenchraa.appdouleur.utils.DateSelecter;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +50,11 @@ public class Register extends AppCompatActivity {
     LitDAO litDAO;
     VilleDAO villedao;
     MedecinDAO medecindao;
+    EtageDAO etagedao;
+    AilDAO aildao;
+
     TypeInterventionDAO interventiondao;
-    InterventionServiceDAO interventionserviceDAO;
+    InterventionServiceDAO interventionserviceDAO ;
     Spinner spinner2;
     Spinner spinner3;
     Spinner spinner4;
@@ -67,16 +72,20 @@ public class Register extends AppCompatActivity {
     List<Batiment> batiments = new ArrayList<>();
     List<Service> services = new ArrayList<>();
     List<Lit> lits = new ArrayList<>();
-    List<TypeIntervention> interventions = new ArrayList<>();
+    List<Ail> ails = new ArrayList<>();
     List<TypeIntervention> interventionsservice = new ArrayList<>();
+    List<Etage> etages = new ArrayList<>();
+
     boolean isWoman = false;
     boolean isMan = false;
-
+    Patient patient;
     DateSelecter dateSelectedFragment;
+    DateSelecter dateSelectedFragment2;
     EditText nomET ;
     EditText  prenomET;
     EditText pseudoET;
     EditText passwordET;
+
 
 
 
@@ -148,21 +157,16 @@ public class Register extends AppCompatActivity {
         spinner6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 populateLits();
-            }
-
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
-            }
-        });
-        spinner11.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 populateTypeIntervention();
+
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
+
+
 
 
         villedao = new VilleDAO(getApplicationContext());
@@ -174,6 +178,29 @@ public class Register extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, villespinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter);
+
+
+        etagedao = new EtageDAO(getApplicationContext());
+        etages= etagedao.getAllEtage();
+        List<String> etagespinner = new ArrayList();
+        for (Etage etage : etages) {
+            etagespinner.add(etage.getEtage());
+        }
+
+        ArrayAdapter adapter10 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, etagespinner);
+        adapter10.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner8.setAdapter(adapter10);
+
+        aildao = new AilDAO(getApplicationContext());
+        ails = aildao.getAllAil();
+        List<String> ailspinner = new ArrayList();
+        for (Ail ail : ails) {
+            ailspinner.add(ail.getAil());
+        }
+
+        ArrayAdapter adapter18= new ArrayAdapter(this, android.R.layout.simple_spinner_item, ailspinner);
+        adapter18.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner7.setAdapter(adapter18);
 
 
 
@@ -277,19 +304,11 @@ public class Register extends AppCompatActivity {
 
                 }
                 List<String> servicespinner = new ArrayList();
-                List<String> ailspinner = new ArrayList();
-                List<Integer> etagespinner = new ArrayList();
+
                 for (Service service : services) {
                     servicespinner.add(service.getLibelleService());
-                    ailspinner.add(service.getAil());
-                    etagespinner.add(service.getEtage());
                     ArrayAdapter adapter5 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, servicespinner);
-                    ArrayAdapter adapter8 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, ailspinner);
-                    ArrayAdapter adapter9 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, etagespinner);
-                    adapter8.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner7.setAdapter(adapter8);
-                    adapter9.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner8.setAdapter(adapter9);
+
                     adapter5.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner6.setAdapter(adapter5);
                 }
@@ -298,6 +317,7 @@ public class Register extends AppCompatActivity {
 
     public void populateLits() {
         litDAO = new LitDAO(getApplicationContext());
+
         String serviceselectionne = spinner6.getSelectedItem().toString();
         for (Service service : services)
             if (service.getLibelleService().equals(serviceselectionne)) {
@@ -313,12 +333,18 @@ public class Register extends AppCompatActivity {
             }
     }
 
+
+
+
     public void populateTypeIntervention() {
-        litDAO = new LitDAO(getApplicationContext());
+        interventionserviceDAO = new InterventionServiceDAO(getApplicationContext());
+
+
         String serviceselectionne = spinner6.getSelectedItem().toString();
         for (Service service : services)
             if (service.getLibelleService().equals(serviceselectionne)) {
                 interventionsservice = interventionserviceDAO.getAllIntervention(service);
+
                 List<String> typeinterventionspinner = new ArrayList();
                 for (TypeIntervention typeintervention : interventionsservice) {
                     typeinterventionspinner.add(typeintervention.getLibelleIntevention());
@@ -341,16 +367,25 @@ public class Register extends AppCompatActivity {
             return;
 
         }
+
+
         String sexe = isWoman ? "femme" : "homme";
-        Lit lit = selectedLit();
+        Lit lit1 = selectedLit();
+        Service service = selectedService();
+        Ail ail= selectedAil();
+        Etage etage= selectedEtage();
+
+        Lit lit = new Lit(lit1.getIdLit(),lit1.getNumeroLit(),service, etage, ail);
         Medecin medecin = selectedMedecin();
         TypeIntervention typeIntervention = selectedTypeIntervention();
+
         if(lit==null || medecin==null || typeIntervention==null) {
             Toast.makeText(this, "Des informations sont manquantes", Toast.LENGTH_SHORT).show();
             return;
         }
-        Patient patient =  new Patient(nomET.getText().toString(),prenomET.getText().toString(),dateSelectedFragment.getDate(),sexe,1,lit,medecin,typeIntervention);
+        Patient patient =  new Patient(nomET.getText().toString(),prenomET.getText().toString(),dateSelectedFragment.getDate(),sexe,pseudoET.getText().toString(),passwordET.getText().toString(),0,dateSelectedFragment2.getDate(),lit,medecin,typeIntervention);
         long rowId = patientDAO.ajouterPatient(patient);
+
         if(rowId!=-1) {
             Toast.makeText(this, "Succées : patient ajouté", Toast.LENGTH_SHORT).show();
 
@@ -360,6 +395,38 @@ public class Register extends AppCompatActivity {
 
         }
     }
+
+    private Ail selectedAil(){
+        if(spinner9.getSelectedItem()==null) {
+            return null;
+        }
+        String ailLabel = spinner9.getSelectedItem().toString();
+        for (Ail ail: ails)
+        {
+            if(spinner9.getSelectedItem().toString().equals(ail.getAil()))
+            {
+                return ail;
+                }
+        }
+        return null;
+
+    }
+
+    private Etage selectedEtage() {
+        if(spinner8.getSelectedItem()==null) {
+            return null;
+        }
+        String etageLabel = spinner8.getSelectedItem().toString();
+        for (Etage etage: etages)
+
+            if(spinner8.getSelectedItem().toString().equals(etage.getEtage()))
+        {
+            return etage;
+        }
+        return null;
+        }
+
+
 
     private Lit selectedLit() {
         if(spinner9.getSelectedItem()==null) {
@@ -392,7 +459,7 @@ public class Register extends AppCompatActivity {
             return null;
         }
         String interventionLabel = spinner11.getSelectedItem().toString();
-        for(TypeIntervention typeIntervention:interventions) {
+        for(TypeIntervention typeIntervention:interventionsservice) {
             if(interventionLabel.equals(String.valueOf(typeIntervention.getLibelleIntevention()))) {
                 return typeIntervention;
             }
@@ -400,9 +467,26 @@ public class Register extends AppCompatActivity {
         return null;
     }
 
+
+    private Service selectedService() {
+        if(spinner6.getSelectedItem()==null) {
+            return null;
+        }
+        String serviceLabel = spinner6.getSelectedItem().toString();
+        for(Service service:services) {
+            if(serviceLabel.equals(String.valueOf(service.getLibelleService()))) {
+                return service;
+            }
+        }
+        return null;
+    }
     public void showDateSelecter(View v) {
         dateSelectedFragment = new DateSelecter();
         dateSelectedFragment.show(getSupportFragmentManager(), "date picker");
+    }
+    public void showDateSelecter2(View v) {
+        dateSelectedFragment2 = new DateSelecter();
+        dateSelectedFragment2.show(getSupportFragmentManager(), "date intervention");
     }
 
     public void onSexeRadioButtonClicked(View view) {
@@ -420,5 +504,8 @@ public class Register extends AppCompatActivity {
                     break;
         }
     }
+
+
+
 }
 

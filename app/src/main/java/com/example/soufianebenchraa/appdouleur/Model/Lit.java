@@ -5,35 +5,60 @@ public class Lit {
   private int IdLit;
   private int NumeroLit;
   private Service service;
+  private Etage etage;
+  private Ail ail;
 
-  public int getIdLit() {
-    return IdLit;
-  }
+    public Lit(int idLit, int numeroLit, Service service, Etage etage, Ail ail) {
+        IdLit = idLit;
+        NumeroLit = numeroLit;
+        this.service = service;
+        this.etage = etage;
+        this.ail = ail;
+    }
 
-  public void setIdLit(int idLit) {
-    IdLit = idLit;
-  }
+    public Lit(int idLit, int numeroLit, Service service) {
+        IdLit = idLit;
+        NumeroLit = numeroLit;
+        this.service = service;
+    }
 
-  public int getNumeroLit() {
-    return NumeroLit;
-  }
+    public int getIdLit() {
+        return IdLit;
+    }
 
-  public void setNumeroLit(int numeroLit) {
-    NumeroLit = numeroLit;
-  }
+    public void setIdLit(int idLit) {
+        IdLit = idLit;
+    }
 
-  public Service getService() {
-    return service;
-  }
+    public int getNumeroLit() {
+        return NumeroLit;
+    }
 
-  public void setService(Service service) {
-    this.service = service;
-  }
+    public void setNumeroLit(int numeroLit) {
+        NumeroLit = numeroLit;
+    }
 
-  public Lit(int idLit, int numeroLit, Service service) {
+    public Service getService() {
+        return service;
+    }
 
-    IdLit = idLit;
-    NumeroLit = numeroLit;
-    this.service = service;
-  }
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Etage getEtage() {
+        return etage;
+    }
+
+    public void setEtage(Etage etage) {
+        this.etage = etage;
+    }
+
+    public Ail getAil() {
+        return ail;
+    }
+
+    public void setAil(Ail ail) {
+        this.ail = ail;
+    }
 }

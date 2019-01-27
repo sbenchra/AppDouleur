@@ -289,7 +289,7 @@
                     android:layout_weight=".20"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:onClick="showDateSelecter"
+                    android:onClick="showDateSelecter2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -303,7 +303,7 @@
             <Spinner
                 android:id="@+id/spinner11"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="51dp" />
 
             <Button
                 android:id="@+id/button20"

@@ -17,11 +17,12 @@ public class PatientDAO extends DAOBase {
     public static final String Patient_LName = "PrenomPatient";
 
     public static final String Patient_Lit = "IdLit";
-    public static final String Patient_Medecin="IdMedcin";
-    public static final String Patient_Birthdate = "DateNaissancePatient";
+    public static final String Patient_Medecin="IdMedecin";
+    public static final String Patient_Birthdate = "NaissancePatient";
     public static final String Patient_Sexe = "SexePatient";
     public static final String Patient_IdIntervention = "IdIntervention";
 
+    public static final String Intervention_Date="DateIntervention";
 
 
     public static final String Patient_Pseudo = "PseudoPatient";
@@ -49,7 +50,7 @@ public class PatientDAO extends DAOBase {
                 String lName = cursor.getString(cursor.getColumnIndex(Patient_LName));
                 String fName = cursor.getString(cursor.getColumnIndex(Patient_FName));
                 String SexePatient = cursor.getString(cursor.getColumnIndex("SexePatient"));
-                String DateNaissance = cursor.getString(cursor.getColumnIndex("DateNaissancePatient"));
+                String DateNaissance = cursor.getString(cursor.getColumnIndex("NaissancePatient"));
                 String PseudoPatient = cursor.getString(cursor.getColumnIndex("PseudoPatient"));
                 String MotdepassePatient = cursor.getString(cursor.getColumnIndex("PatientMotdePasse"));
                 int EtatPatient = cursor.getInt( cursor.getColumnIndex("EtatPatient"));
@@ -85,7 +86,7 @@ public class PatientDAO extends DAOBase {
                 Batiment b = new Batiment(idbatiment,nombatiment,h);
                 Service s = new Service(idService,etage,ail,nomservice,b);
                 Lit l= new Lit(idlit,numerolit,s);
-                TypeIntervention i= new TypeIntervention(idIntervention,dateintervention,heureintervention,libelleintervention);
+                TypeIntervention i= new TypeIntervention(idIntervention,libelleintervention);
                 Medecin m = new Medecin(idmedecin,nommedecin,prenommedecin,numeromedecin,pseudoMedecin);
                 Patient p = new Patient(lName,fName,DateNaissance,SexePatient,EtatPatient,l,m,i);
                 patients.add(p);
@@ -104,8 +105,10 @@ public class PatientDAO extends DAOBase {
         ContentValues value = new ContentValues();
         value.put(PatientDAO.Patient_LName, p.getNomPatient());
         value.put(PatientDAO.Patient_FName, p.getPrenomPatient());
-        value.put(PatientDAO.Patient_Birthdate, p.getDateNaissancePatient() );
+        value.put("NaissancePatient", p.getDateNaissancePatient() );
         value.put(PatientDAO.Patient_Pseudo, p.getPseudoPatient() );
+        value.put(PatientDAO.Patient_MotDePasse, p.getMotDePassePatient() );
+        value.put(PatientDAO.Intervention_Date, p.getDateIntervention() );
         value.put(PatientDAO.Patient_Sexe, p.getSexePatient());
         value.put(PatientDAO.Patient_EtatPatient, p.getEtatPatient());
         value.put(PatientDAO.Patient_Lit, p.getLit().getIdLit());
@@ -116,9 +119,10 @@ public class PatientDAO extends DAOBase {
 
     }
 
-    public void supprimerPatient(long id)
+    public int supprimerPatient(long id)
     {
-        mDb.delete(Patient_TABLE_NAME, Patient_KEY + " = ?", new String[] {String.valueOf(id)});
+        if(id<=0)  return -1;
+       return mDb.delete(Patient_TABLE_NAME, Patient_KEY + " = ?", new String[] {String.valueOf(id)});
 
     }
 

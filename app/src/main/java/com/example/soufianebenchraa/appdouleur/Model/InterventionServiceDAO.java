@@ -16,15 +16,14 @@ public class InterventionServiceDAO extends DAOBase{
 
     public List<TypeIntervention> getAllIntervention(Service s) {
         List<TypeIntervention> l = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery( "select * from InterventionService NATURAL JOIN TypeIntervention where IdService = ?" , new String[]{String.valueOf(s.getIdService())});
+        Cursor cursor = getReadableDatabase().rawQuery( "select I.IdIntervention as IdIntervention, LibelleTypeIntervention " +
+                "from InterventionService I, TypeIntervention T , Service S where T.IdIntervention = I.IdIntervention and" +
+                " I.IdService = S.IdService and I.IdService = ?" , new String[]{String.valueOf(s.getIdService())});
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                int idtypeintervention = cursor.getInt(cursor.getColumnIndex("IdTypeIntevention"));
-                int idTypeIntervention = cursor.getInt(cursor.getColumnIndex("IdTypeIntervention"));
+                int idtypeintervention = cursor.getInt(cursor.getColumnIndex("IdIntervention"));
                 String libelletypeintervention = cursor.getString(cursor.getColumnIndex("LibelleTypeIntervention"));
-                String heureintevention = cursor.getString(cursor.getColumnIndex("HeureIntervention"));
-                String dateintervention = cursor.getString(cursor.getColumnIndex("DateIntervention"));
-                TypeIntervention typeintervention = new TypeIntervention(idtypeintervention,libelletypeintervention,heureintevention,dateintervention);
+                TypeIntervention typeintervention = new TypeIntervention(idtypeintervention,libelletypeintervention);
 
                 l.add(typeintervention);
             }

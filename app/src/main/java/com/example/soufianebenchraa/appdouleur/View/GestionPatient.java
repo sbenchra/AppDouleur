@@ -1,8 +1,12 @@
 package com.example.soufianebenchraa.appdouleur.View;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +14,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.soufianebenchraa.appdouleur.Model.Medecin;
 import com.example.soufianebenchraa.appdouleur.Model.Patient;
 import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
 import com.example.soufianebenchraa.appdouleur.R;
+import com.example.soufianebenchraa.appdouleur.utils.EditModal;
 
 import java.util.List;
 
@@ -20,6 +26,10 @@ public class GestionPatient extends AppCompatActivity {
 
     private TableLayout displayedPatients;
     private PatientDAO patientDAO;
+    private Patient selectedPatient;
+    private TableRow selectedRow;
+    EditModal editNameDialogFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +62,10 @@ public class GestionPatient extends AppCompatActivity {
         displayedPatients.addView(createTableRow(patient));
         Log.i("table number of rows",String.valueOf(displayedPatients.getChildCount()));
     }
-    private TableRow createTableRow(Patient patient) {
+    private TableRow createTableRow(final Patient patient) {
         Context context = getApplicationContext();
         // Create a new table row.
-        TableRow tableRow = new TableRow(getApplicationContext());
+        final TableRow tableRow = new TableRow(getApplicationContext());
         // Set new table row layout parameters.
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
         tableRow.setLayoutParams(layoutParams);
@@ -115,7 +125,7 @@ public class GestionPatient extends AppCompatActivity {
         tableRow.addView(Ville, 11);
         TextView DateIntervention = new TextView(context);
         DateIntervention.setTextColor(Color.parseColor("#3a94e9"));
-        DateIntervention.setText(patient.getIntervention().getDateIntervention());
+        DateIntervention.setText(patient.getDateIntervention());
         tableRow.addView(DateIntervention, 12);
         TextView LibelleIntervention = new TextView(context);
         LibelleIntervention.setTextColor(Color.parseColor("#3a94e9"));
@@ -125,7 +135,61 @@ public class GestionPatient extends AppCompatActivity {
         Etat.setTextColor(Color.parseColor("#3a94e9"));
         Etat.setText(patient.getEtatPatient());
         tableRow.addView(Etat, 14);
+        tableRow.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                selectedPatient = patient;
+                selectedRow = tableRow;
+                onCreateContextMenu(patient);
+
+            }
+        });
 
         return tableRow;
+    }
+
+    private void deletePatient() {
+        if(selectedPatient==null) {
+            return;
+        }
+        int rowId = patientDAO.supprimerPatient(selectedPatient.getIdPatient());
+        if(rowId>0) {
+            displayedPatients.removeView(selectedRow);
+            selectedRow = null;
+            selectedPatient = null;
+            editNameDialogFragment.dismiss();
+        }
+    }
+
+    public void onDelete(View button) {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Supprimer patient")
+                .setMessage("Le patient sera désactiver")
+                .setPositiveButton("Continuer", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePatient();
+                    }
+
+                })
+                .setNegativeButton("Annuler", null)
+                .show();
+    }
+
+
+    public void onUpdate(View button) {
+        Intent i = new Intent (GestionPatient.this, Register.class);
+        i.putExtra("patient",  selectedPatient);
+        startActivity(i);
+    }
+
+
+    public void onCreateContextMenu(Patient patient)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        editNameDialogFragment = EditModal.newInstance(patient.getNomPatient() + " "+ patient.getPrenomPatient());
+        editNameDialogFragment.show(fm, "fragment_edit_name");
+
     }
 }

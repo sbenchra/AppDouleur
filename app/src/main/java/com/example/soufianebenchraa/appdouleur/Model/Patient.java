@@ -1,9 +1,10 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 import android.telephony.mbms.StreamingServiceInfo;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Patient {
+public class Patient implements Serializable {
 
     private int IdPatient;
 
@@ -14,6 +15,7 @@ public class Patient {
     private String PseudoPatient;
     private String MotDePassePatient;
     private int EtatPatient;
+    private String DateIntervention;
     private Lit lit;
     private Medecin medecin;
     private TypeIntervention intervention;
@@ -29,8 +31,8 @@ public class Patient {
         this.intervention = intervention;
     }
 
-    public Patient(int idPatient, String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, Lit lit, Medecin medecin, TypeIntervention intervention) {
-        IdPatient = idPatient;
+    public Patient( String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, String dateIntervention, Lit lit, Medecin medecin, TypeIntervention intervention) {
+
         NomPatient = nomPatient;
         PrenomPatient = prenomPatient;
         DateNaissancePatient = dateNaissancePatient;
@@ -38,6 +40,7 @@ public class Patient {
         PseudoPatient = pseudoPatient;
         MotDePassePatient = motDePassePatient;
         EtatPatient = etatPatient;
+        DateIntervention = dateIntervention;
         this.lit = lit;
         this.medecin = medecin;
         this.intervention = intervention;
@@ -105,6 +108,14 @@ public class Patient {
 
     public void setEtatPatient(int etatPatient) {
         EtatPatient = etatPatient;
+    }
+
+    public String getDateIntervention() {
+        return DateIntervention;
+    }
+
+    public void setDateIntervention(String dateIntervention) {
+        DateIntervention = dateIntervention;
     }
 
     public Lit getLit() {

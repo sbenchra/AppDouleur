@@ -26,10 +26,8 @@ public class TypeInterventionDAO extends DAOBase {
             while (cursor.moveToNext()) {
                 int idtypeintervention = cursor.getInt(cursor.getColumnIndex("IdTypeIntevention"));
                 String libelletypeintervention = cursor.getString(cursor.getColumnIndex("LibelleTypeIntervention"));
-                String heureintevention = cursor.getString(cursor.getColumnIndex("HeureIntervention"));
-                String dateintervention = cursor.getString(cursor.getColumnIndex("DateIntervention"));
 
-                TypeIntervention typeintervention = new TypeIntervention(idtypeintervention,libelletypeintervention,heureintevention,dateintervention);
+                TypeIntervention typeintervention = new TypeIntervention(idtypeintervention,libelletypeintervention);
                 l.add(typeintervention);
 
             }
@@ -43,8 +41,7 @@ public class TypeInterventionDAO extends DAOBase {
   {
     super.open();
     ContentValues value = new ContentValues();
-      value.put(TypeInterventionDAO.Intervention_Name, intervention.getDateIntervention());
-      value.put(TypeInterventionDAO.Intervention_Name, intervention.getHeureIntervention());
+
     value.put(TypeInterventionDAO.Intervention_Name, intervention.getLibelleIntevention());
 
     mDb.insert(Intervention_Table_Name, null, value);
