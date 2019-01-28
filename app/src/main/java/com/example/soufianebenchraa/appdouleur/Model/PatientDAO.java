@@ -134,9 +134,27 @@ public class PatientDAO extends DAOBase {
 
     }
 
-    public void modifierPatient(Patient p)
+    public long modifierPatient(Patient p)
     {
+        if(p==null) {
+            return -1;
+        }
+        super.open();
+        ContentValues value = new ContentValues();
+        value.put(PatientDAO.Patient_LName, p.getNomPatient());
+        value.put(PatientDAO.Patient_FName, p.getPrenomPatient());
+        value.put("NaissancePatient", p.getDateNaissancePatient() );
+        value.put(PatientDAO.Patient_Pseudo, p.getPseudoPatient() );
+        value.put(PatientDAO.Patient_MotDePasse, p.getMotDePassePatient() );
+        value.put(PatientDAO.Intervention_Date, p.getDateIntervention() );
+        value.put(PatientDAO.Patient_Sexe, p.getSexePatient());
+        value.put(PatientDAO.Patient_EtatPatient, p.getEtatPatient());
+        value.put(PatientDAO.Patient_Lit, p.getLit().getIdLit());
+        value.put(PatientDAO.Patient_Medecin, p.getMedecin().getIdMedecin());
+        value.put(PatientDAO.Patient_IdIntervention, p.getIntervention().getIdIntervention());
 
+
+        return mDb.update(Patient_TABLE_NAME,  value, Patient_KEY  + " = ?", new String[] {String.valueOf(p.getIdPatient())});
     }
 
     public int CheckPatient(String pseudoname, String motdepasse)

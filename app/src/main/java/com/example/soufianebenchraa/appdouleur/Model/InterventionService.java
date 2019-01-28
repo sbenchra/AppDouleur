@@ -1,9 +1,10 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class InterventionService {
+public class InterventionService implements Serializable {
 
     int idtypeinterventionservice;
     TypeIntervention typeintervention;

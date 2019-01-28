@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Service {
+import java.io.Serializable;
+
+public class Service implements Serializable {
 
 	private int IdService;
 	private String LibelleService;

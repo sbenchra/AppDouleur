@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.soufianebenchraa.appdouleur.Model.Ail;
 import com.example.soufianebenchraa.appdouleur.Model.AilDAO;
@@ -21,6 +22,7 @@ import com.example.soufianebenchraa.appdouleur.Model.Patient;
 import com.example.soufianebenchraa.appdouleur.Model.PatientDAO;
 import com.example.soufianebenchraa.appdouleur.R;
 import com.example.soufianebenchraa.appdouleur.utils.EditModal;
+import com.example.soufianebenchraa.appdouleur.utils.EditModalPatient;
 
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class GestionPatient extends AppCompatActivity {
     private PatientDAO patientDAO;
     private Patient selectedPatient;
     private TableRow selectedRow;
-    EditModal editNameDialogFragment;
+    EditModalPatient editNameDialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,11 +155,13 @@ public class GestionPatient extends AppCompatActivity {
         return tableRow;
     }
 
+
     private void deletePatient() {
+        selectedPatient.setEtatPatient(0);
         if(selectedPatient==null) {
             return;
         }
-        int rowId = patientDAO.supprimerPatient(selectedPatient.getIdPatient());
+        long rowId = patientDAO.modifierPatient(selectedPatient);
         if(rowId>0) {
             displayedPatients.removeView(selectedRow);
             selectedRow = null;
@@ -185,16 +189,32 @@ public class GestionPatient extends AppCompatActivity {
 
 
     public void onUpdate(View button) {
-        Intent i = new Intent (GestionPatient.this, Register.class);
-        i.putExtra("patient",  selectedPatient);
-        startActivity(i);
+        Intent j = new Intent (GestionPatient.this, Register.class);
+        j.putExtra("patient",  selectedPatient);
+        startActivity(j);
+    }
+
+    public void Activate(View button) {
+
+        selectedPatient.setEtatPatient(1);
+        long rowId = patientDAO.modifierPatient(selectedPatient);
+
+        if(rowId>0) {
+            Toast.makeText(this, "Succées : patient activé + "+ rowId, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent (GestionPatient.this, Register.class);
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "Une erreur est survenu lors de l'activation", Toast.LENGTH_SHORT).show();
+            Log.e("activation patient","patient : "+selectedPatient.getPrenomPatient());
+
+        }
     }
 
 
     public void onCreateContextMenu(Patient patient)
     {
         FragmentManager fm = getSupportFragmentManager();
-        editNameDialogFragment = EditModal.newInstance(patient.getNomPatient() + " "+ patient.getPrenomPatient());
+        editNameDialogFragment = EditModalPatient.newInstance(patient.getNomPatient() + " "+ patient.getPrenomPatient());
         editNameDialogFragment.show(fm, "fragment_edit_name");
 
     }

@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Ville {
+import java.io.Serializable;
+
+public class Ville implements Serializable {
 
 	private int IdVille;
 	private String NomVille;

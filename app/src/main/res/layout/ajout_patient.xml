@@ -312,6 +312,14 @@
                 android:background="#3a94e9"
                 android:text="S'enregister"
                 android:onClick="addPatient"/>
+            <Button
+                android:id="@+id/button40"
+                android:layout_width="104dp"
+                android:layout_height="27dp"
+                android:background="#3a94e9"
+                android:text="Modifier"
+                android:visibility="gone"
+                android:onClick="updatePatient"/>
 
         </LinearLayout>
     </ScrollView>

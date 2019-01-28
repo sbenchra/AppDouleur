@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -86,8 +87,8 @@ public class Register extends AppCompatActivity {
     EditText  prenomET;
     EditText pseudoET;
     EditText passwordET;
-
-
+    Button addEditButton;
+    Button updateEditButton;
 
 
 
@@ -119,6 +120,14 @@ public class Register extends AppCompatActivity {
         spinner10 = (Spinner) findViewById(R.id.spinner10);
         //Spinner Intervention
         spinner11 = (Spinner) findViewById(R.id.spinner11);
+        addEditButton =  findViewById(R.id.button20);
+        updateEditButton =  findViewById(R.id.button40);
+        try {
+            patient = (Patient) getIntent().getSerializableExtra("patient");
+            populayeViews(patient);
+        } catch(ClassCastException e) {
+            Log.e("modifier patient","cast patient",e);
+        }
 
 
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -216,18 +225,6 @@ public class Register extends AppCompatActivity {
         spinner10.setAdapter(adapter11);
 
 
-/*
-
-        interventiondao = new TypeInterventionDAO(getApplicationContext());
-        interventions = interventiondao.getAllIntervention();
-        List<String> interventionspinner = new ArrayList();
-        for (TypeIntervention intervention : interventions) {
-            interventionspinner.add(intervention.getLibelleIntevention());
-        }
-        ArrayAdapter adapter12 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, interventionspinner);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner11.setAdapter(adapter12);
-*/
     }
 
     public void populateCentres() {
@@ -357,7 +354,36 @@ public class Register extends AppCompatActivity {
             }
     }
 
+    private void populayeViews(Patient patient) {
+        if(patient==null) {
+            return;
+        }
+        nomET.setText(patient.getNomPatient());
+        prenomET.setText(patient.getPrenomPatient());
+        passwordET.setText(patient.getMotDePassePatient());
+        pseudoET.setText(patient.getPseudoPatient());
+        addEditButton.setVisibility(View.GONE);
+        updateEditButton.setVisibility(View.VISIBLE);
+    }
+
     public void addPatient(View addButton) {
+        pouplateViews();
+        long rowId = patientDAO.ajouterPatient(patient);
+
+        if(rowId>0) {
+            Toast.makeText(this, "Succées : patient ajouté + "+ rowId, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent (Register.this, GestionPatient.class);
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "Une erreur est survenu lors de l'ajout du patient", Toast.LENGTH_SHORT).show();
+            Log.e("ajout patient","patient : "+patient);
+
+        }
+    }
+
+
+
+    public void pouplateViews(){
         //TODO tester la validité des autres champs
         if(!isMan && !isWoman) {
             Toast.makeText(this, "Veuillez sélectionner le sexe du patient", Toast.LENGTH_SHORT).show();
@@ -385,18 +411,24 @@ public class Register extends AppCompatActivity {
             return;
         }
         Patient patient =  new Patient(nomET.getText().toString(),prenomET.getText().toString(),dateSelectedFragment.getDate(),sexe,pseudoET.getText().toString(),passwordET.getText().toString(),0,dateSelectedFragment2.getDate(),lit,medecin,typeIntervention);
-        long rowId = patientDAO.ajouterPatient(patient);
+    }
+
+    public void updatePatient(View addButton)
+    {
+        pouplateViews();
+        long rowId = patientDAO.modifierPatient(patient);
 
         if(rowId>0) {
-            Toast.makeText(this, "Succées : patient ajouté + "+ rowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Succées : patient modifié + "+ rowId, Toast.LENGTH_SHORT).show();
             Intent i = new Intent (Register.this, GestionPatient.class);
             startActivity(i);
         } else {
-            Toast.makeText(this, "Une erreur est survenu lors de l'ajout du patient", Toast.LENGTH_SHORT).show();
-            Log.e("ajout patient","patient : "+patient);
+            Toast.makeText(this, "Une erreur est survenu lors de modification du patient", Toast.LENGTH_SHORT).show();
+            Log.e("modifier patient","patient : "+patient);
 
         }
     }
+
 
     private Ail selectedAil(){
         if(spinner7.getSelectedItem()==null) {

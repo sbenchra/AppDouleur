@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class TypeIntervention {
+import java.io.Serializable;
+
+public class TypeIntervention implements Serializable {
 
     private int IdIntervention;
 

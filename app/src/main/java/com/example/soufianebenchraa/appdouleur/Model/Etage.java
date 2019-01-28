@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Etage {
+import java.io.Serializable;
+
+public class Etage implements Serializable {
 
     private String Etage;
 

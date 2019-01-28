@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Lit {
+import java.io.Serializable;
+
+public class Lit implements Serializable {
 
   private int IdLit;
   private int NumeroLit;

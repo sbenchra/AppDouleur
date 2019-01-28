@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Batiment {
+import java.io.Serializable;
+
+public class Batiment implements Serializable {
 
 	private int IdBatiment;
 

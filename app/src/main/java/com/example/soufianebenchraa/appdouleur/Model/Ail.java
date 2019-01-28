@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Ail {
+import java.io.Serializable;
+
+public class Ail implements Serializable {
 
     private String Ail;
 

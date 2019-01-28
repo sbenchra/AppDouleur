@@ -1,6 +1,8 @@
 package com.example.soufianebenchraa.appdouleur.Model;
 
-public class Centre {
+import java.io.Serializable;
+
+public class Centre implements Serializable {
 
 	private int IdCentre;
 	private String NomCentre;
