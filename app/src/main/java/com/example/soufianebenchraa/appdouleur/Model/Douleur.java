@@ -8,12 +8,17 @@ public class Douleur {
   private String TempsDouleur;
   private String CodePartie;
   private int Intensite;
+  private Patient patient;
 
-  public Douleur(int idDouleur, String tempsDouleur, String codePartie, int intensite) {
-    IdDouleur = idDouleur;
+  public Douleur(String tempsDouleur, String codePartie, int intensite, Patient patient) {
     TempsDouleur = tempsDouleur;
     CodePartie = codePartie;
     Intensite = intensite;
+    this.patient = patient;
+  }
+  public Douleur(int id,String tempsDouleur, String codePartie, int intensite, Patient patient) {
+    this(tempsDouleur,codePartie,intensite,patient);
+    IdDouleur = id;
   }
 
   public int getIdDouleur() {
@@ -47,4 +52,13 @@ public class Douleur {
   public void setIntensite(int intensite) {
     Intensite = intensite;
   }
+
+  public Patient getPatient() {
+    return patient;
+  }
+
+  public void setPatient(Patient patient) {
+    this.patient = patient;
+  }
+
 }

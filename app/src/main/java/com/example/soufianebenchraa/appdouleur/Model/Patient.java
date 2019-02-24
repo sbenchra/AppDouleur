@@ -20,18 +20,7 @@ public class Patient implements Serializable {
     private Medecin medecin;
     private TypeIntervention intervention;
 
-    public Patient(String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, int etatPatient, Lit lit, Medecin medecin, TypeIntervention intervention) {
-        NomPatient = nomPatient;
-        PrenomPatient = prenomPatient;
-        DateNaissancePatient = dateNaissancePatient;
-        SexePatient = sexePatient;
-        EtatPatient = etatPatient;
-        this.lit = lit;
-        this.medecin = medecin;
-        this.intervention = intervention;
-    }
-
-    public Patient( String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, String dateIntervention, Lit lit, Medecin medecin, TypeIntervention intervention) {
+    public Patient(String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, String dateIntervention, Lit lit, Medecin medecin, TypeIntervention intervention) {
 
         NomPatient = nomPatient;
         PrenomPatient = prenomPatient;
@@ -44,6 +33,14 @@ public class Patient implements Serializable {
         this.lit = lit;
         this.medecin = medecin;
         this.intervention = intervention;
+    }
+
+    public Patient(int id) {
+        IdPatient = id;
+    }
+    public Patient( int id,String nomPatient, String prenomPatient, String dateNaissancePatient, String sexePatient, String pseudoPatient, String motDePassePatient, int etatPatient, String dateIntervention, Lit lit, Medecin medecin, TypeIntervention intervention) {
+        this(nomPatient,prenomPatient,dateNaissancePatient,sexePatient,pseudoPatient,motDePassePatient,etatPatient,dateIntervention,lit,medecin,intervention);
+        IdPatient = id;
     }
 
     public int getIdPatient() {

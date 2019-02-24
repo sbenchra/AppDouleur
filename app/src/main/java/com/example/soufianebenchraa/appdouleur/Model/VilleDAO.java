@@ -6,7 +6,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VilleDAO extends DAOBase{
+public class VilleDAO extends com.example.soufianebenchraa.appdouleur.Model.DAOBase {
 
 
     public VilleDAO(Context pContext) {

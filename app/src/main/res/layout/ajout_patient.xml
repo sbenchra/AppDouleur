@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -18,7 +19,10 @@
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -51,24 +55,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/textView39"
-                android:layout_width="332dp"
-
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Vous etes connectés en tant qu'administrateur de l'application AppDouleur."
-                android:textColor="#3a94e9"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.363"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.084" />
-
 
             <TextView
                 android:id="@+id/textView41"
@@ -80,7 +66,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Ajouter un patient"
+                android:text="Inscription patient"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,32 +79,32 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="Nom"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Nom"/>
+                android:hint="Nom"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Prenom" />
+                android:hint="Prenom"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Pseudo" />
+                android:hint="Pseudo"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:text="Password" />
+                android:hint="Password"
+                android:inputType="textPassword" />
 
 
             <LinearLayout
@@ -126,10 +112,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/dateNaissance"
                     android:layout_width="0dp"
-                    android:layout_weight=".70"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".70"
                     android:text="Date de naissance"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -139,33 +125,39 @@
                 <Button
                     android:id="@+id/button"
                     android:layout_width="0dp"
-                    android:layout_weight=".20"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:layout_weight=".20"
                     android:onClick="showDateSelecter"
+                    android:text="Date"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <RadioButton android:id="@+id/radio_femme"
+
+                    <RadioButton
+                        android:id="@+id/radio_femme"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".50"
-                        android:text="Femme"
-                        android:onClick="onSexeRadioButtonClicked"/>
-                    <RadioButton android:id="@+id/radio_homme"
+                        android:onClick="onSexeRadioButtonClicked"
+                        android:text="Femme" />
+
+                    <RadioButton
+                        android:id="@+id/radio_homme"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".50"
-                        android:text="Homme"
-                        android:onClick="onSexeRadioButtonClicked"/>
+                        android:onClick="onSexeRadioButtonClicked"
+                        android:text="Homme" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -273,10 +265,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/dateIntervention"
                     android:layout_width="0dp"
-                    android:layout_weight=".70"
                     android:layout_height="wrap_content"
+                    android:layout_weight=".70"
                     android:text="Date d'intervention"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -286,14 +278,15 @@
                 <Button
                     android:id="@+id/button29"
                     android:layout_width="0dp"
-                    android:layout_weight=".20"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:layout_weight=".20"
                     android:onClick="showDateSelecter2"
+                    android:text="Date"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/textView37"
                 android:layout_width="match_parent"
@@ -310,16 +303,19 @@
                 android:layout_width="104dp"
                 android:layout_height="27dp"
                 android:background="#3a94e9"
-                android:text="S'enregister"
-                android:onClick="addPatient"/>
+                android:onClick="addPatient"
+                android:text="S'enregister" />
+
+
+
             <Button
                 android:id="@+id/button40"
                 android:layout_width="104dp"
                 android:layout_height="27dp"
                 android:background="#3a94e9"
+                android:onClick="updatePatient"
                 android:text="Modifier"
-                android:visibility="gone"
-                android:onClick="updatePatient"/>
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

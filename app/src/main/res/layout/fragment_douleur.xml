@@ -1,0 +1,123 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_douleur"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_gravity="center" android:orientation="vertical"  >
+
+
+    <TableLayout
+        android:layout_width="199dp"
+        android:layout_height="630dp"
+        android:orientation="horizontal"
+        android:padding="30dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="#94d204"
+            android:onClick="zeo"
+            android:text="0"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="#a9ec0c"
+            android:onClick="un"
+            android:text="1"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="#c7ec0c"
+            android:onClick="deux"
+            android:text="2"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#d6ec0c"
+            android:onClick="trois"
+            android:text="3"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ece50c"
+            android:onClick="quatre"
+            android:text="4"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ecd60c"
+            android:onClick="cinq"
+            android:text="5"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ecc70c"
+            android:onClick="six"
+            android:text="6"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ecb80c"
+            android:onClick="sept"
+            android:text="7"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ec960c"
+            android:onClick="huit"
+            android:text="8"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="#ec660c"
+            android:onClick="neuf"
+            android:text="9"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:background="@color/colorDelete"
+            android:onClick="dix"
+            android:text="10"
+            android:textColor="#FFFFFF" />
+
+    </TableLayout>
+
+
+</TableLayout>

@@ -44,6 +44,15 @@ public class MedecinDAO extends DAOBase {
         return medecins;
     }
 
+    public boolean CheckPseudo(String pseudoname){
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Medecin where PseudoMedecin = '"+pseudoname+"'" ,null);
+        if(cursor!=null && cursor.moveToFirst()) {
+            return true;
+        }
+        else return false;
+
+
+    }
     public long ajouterMedecin(Medecin m)
     {
         if(m==null) {
@@ -98,5 +107,20 @@ public class MedecinDAO extends DAOBase {
         Medecin m = new Medecin(id,PrenomMedecin, NomMedecin,NumeroMedecin,PseudoMedecin,MotDePasseMedecin);
 
         return m;
+    }
+    public int CheckMedecin(String pseudoname, String motdepasse)
+    {
+        if(pseudoname==null || motdepasse==null || "".equals(pseudoname) || "".equals(motdepasse)) {
+            return 0;
+        }
+        Cursor cursor = getReadableDatabase().rawQuery("select * from Medecin where PseudoMedecin = '"+pseudoname+"' AND MedecinMotDePasse = '"+motdepasse+"'" ,null);
+        if(cursor!=null && cursor.moveToFirst())
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

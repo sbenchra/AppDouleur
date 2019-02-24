@@ -10,14 +10,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.AjouterMedecin" android:noHistory="false"> </activity>
-        <activity android:name=".View.ModifierMedecin" android:noHistory="false"> </activity>
-        <activity android:name=".View.Administrator" android:noHistory="false"> </activity>
-        <activity android:name=".View.ConnexionAdmin" android:noHistory="false"> </activity>
-        <activity android:name=".View.Register" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.AjouterMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.ConnexionMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.ConnexionPatient" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.ModifierMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.Administrator" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.ConnexionAdmin" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.GestionMedecin" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.GestionPatient" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.Register" android:noHistory="false"> </activity>
+        <activity android:name=".Controller.Patient" android:noHistory="false"> </activity>
+
+        <activity android:name=".Controller.SaisirDouleur" android:noHistory="false"> </activity>
+
+        <activity android:name=".Controller.Register2" android:noHistory="false"> </activity>
 
 
-        <activity android:name=".View.GestionPatient" android:noHistory="true">
+        <activity android:name=".MainActivity" android:noHistory="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

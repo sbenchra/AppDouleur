@@ -21,30 +21,15 @@ public class DouleurDAO extends DAOBase {
   {
     super.open();
     ContentValues value = new ContentValues();
-    value.put(Patient_id, d.getIdDouleur());
+
     value.put(Douleur_Intensity, d.getIntensite());
     value.put(Douleur_Time, d.getTempsDouleur());
     value.put(Douleur_Body, d.getCodePartie());
+    value.put(Patient_id, d.getPatient().getIdPatient());
+
 
     mDb.insert(Douleur_Table_Name, null, value);
 
   }
 
-
-
-  public Douleur selectionnerDouleur(int id)
-  {
-    Cursor c = mDb.rawQuery("select Intensite,TempsDouleur,CodeParite from " + Douleur_Table_Name + " where IdPatient = ? ", new String[]{id + ""});
-
-    int Intensite = c.getInt(1);
-
-    String TempsDouleur = c.getString(2);
-
-    String CodePartie = c.getString(3);
-
-    Douleur d = new Douleur(id,TempsDouleur, CodePartie,Intensite);
-
-    return d;
-
-  }
 }

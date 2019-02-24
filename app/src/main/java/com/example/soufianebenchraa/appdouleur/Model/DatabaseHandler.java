@@ -11,9 +11,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     public static final String Ville_Key="IdVille";
-
     public static final String Ville_Name="NomVille";
-
     public static final String Ville_Table_Name="Ville";
 
 
@@ -21,9 +19,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             "CREATE TABLE "+ Ville_Table_Name + "(" +
                     Ville_Key +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
                     Ville_Name +" TEXT)";
-
-
-
 
 
 
@@ -436,4 +431,3 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 }
-

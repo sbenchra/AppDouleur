@@ -19,6 +19,7 @@
         android:background="#3a94e9"
         android:textColor="#FFFF"
         android:text="Retour"
+        android:onClick="goBack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.028"
@@ -130,7 +131,6 @@
 
 
         </TableRow>
-        <!-- Add a blue line. -->
         <View
             android:background="@color/colorPrimary"
             android:layout_height="3dp"/>
